@@ -23,11 +23,11 @@ const UserSchema = new Schema({
   },
   img:{
     type: String
-  }
-  // order_id:[{
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'order'
-  // }]
+  },
+  orders:[{
+    type: Schema.Types.ObjectId,
+    ref: 'order'
+  }]
 },{
   timestamps: true,
   versionKey:false
