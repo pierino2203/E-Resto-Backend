@@ -1,9 +1,13 @@
 import { RequestHandler } from 'express'
-import Order from '../models/Order'
+import { isValidObjectId } from 'mongoose'
 import User from '../models/User'
 export const getUser: RequestHandler = async (req,res) => {
   try {
-    const users= await User.find()
+    const users= await User.find().populate('orders',{
+      user_id: 0,
+      createdAt: 0,
+      updatedAt: 0
+    })
     res.status(200).json(users)
   } catch (error) {
     console.log('Error in getUser',error)
@@ -32,8 +36,12 @@ export const postUser: RequestHandler = async (req,res) =>  {
 export const findUserById: RequestHandler = async (req,res) => {
   try {
     const {id} = req.params
-    if(id.length===24){
-      const user = await User.findById(id)
+    if(isValidObjectId(id)){
+      const user = await User.findById(id).populate('orders',{
+        user_id: 0,
+        createdAt: 0,
+        updatedAt: 0
+      })
       user
       ? res.send(user)
       : res.send('User not found')
@@ -48,7 +56,7 @@ export const findUserById: RequestHandler = async (req,res) => {
 export const deleteUser: RequestHandler = async (req,res) =>  {
   try{
     const {id} = req.params
-    if(id.length === 24){
+    if(isValidObjectId(id)){
       const user = await User.findByIdAndDelete(id)
       user
       ? res.status(200).json({ msg: `Deleted User ${id}`})
@@ -65,7 +73,7 @@ export const deleteUser: RequestHandler = async (req,res) =>  {
 export const editUser: RequestHandler = async (req,res) =>  {
   try {
     const {id}= req.params
-    if(id.length === 24){
+    if(isValidObjectId(id)){
       const user = await User.findByIdAndUpdate(id,req.body)
       user
       ? res.status(200).json(user)
