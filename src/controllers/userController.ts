@@ -1,4 +1,5 @@
-import { Handler, RequestHandler } from 'express'
+import { RequestHandler } from 'express'
+import Order from '../models/Order'
 import User from '../models/User'
 export const getUser: RequestHandler = async (req,res) => {
   try {
@@ -11,14 +12,16 @@ export const getUser: RequestHandler = async (req,res) => {
 export const postUser: RequestHandler = async (req,res) =>  {
   try {
     const {name,lastName,userName,mail,admin,img} = req.body
-    if( !name || !lastName || !userName || !mail) {res.send('Missing data required')}
+    // if( !name || !lastName || !userName || !mail) {res.send('Missing data required')}
     const userFind = await User.findOne({mail: mail})
-    if(userFind != null){
-      res.status(404)
-    } else{
+    if(userFind === null){
       const user = new User(req.body)
       const saveUser = await user.save()
       res.json(saveUser)
+      
+    } else{
+      // const order = await Order.findById(order_id);
+      res.send('User already exist')
     }  
   }
    catch (error) {
