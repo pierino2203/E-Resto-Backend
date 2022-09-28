@@ -23,7 +23,11 @@ const UserSchema = new Schema({
   },
   img:{
     type: String
-  }
+  },
+  orders:[{
+    type: Schema.Types.ObjectId,
+    ref: 'order'
+  }]
 },{
   timestamps: true,
   versionKey:false
