@@ -13,6 +13,13 @@ const ProductSchema = new Schema({
         type:Number,
         required:true
     },
+    stock:{
+        type:Number,
+        require:true
+    },
+    rating:{
+        type: Number
+    },
     off:{
         type:Boolean,
         required:false
