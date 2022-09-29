@@ -8,7 +8,8 @@ interface Product {
     rating:number,
     off:boolean,
     img:string,
-    createdAt: Date
+    createdAt: Date,
+    updatedAt: Date
 }
 
 const ProductSchema = new Schema<Product>({
@@ -39,9 +40,14 @@ const ProductSchema = new Schema<Product>({
     img:{
         type:String,
         required:true,
-        default: 'https://static2.elnortedecastilla.es/www/pre2017/multimedia/noticias/201501/12/media/cortadas/facebook-profile-picture-no-pic-avatar--575x323.jpg'
+        default: 'https://res.cloudinary.com/luubermudezz/image/upload/v1664466217/E-Commerce%20Food/avatar_pdkofa.jpg'
     },
     createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    updatedAt: {
         type: Date,
         required: true,
         default: Date.now
