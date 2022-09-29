@@ -21,3 +21,11 @@ export const getProduct : RequestHandler = async (req, res) =>  {
 
 }
 
+export const createNewProduct : RequestHandler = async (req, res) => {
+  try {
+    console.log('entra al try')
+  }
+  catch (err) {
+    console.log(err)
+  }
+}
