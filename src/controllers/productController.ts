@@ -6,8 +6,8 @@ export const getProduct : RequestHandler = async (req, res) =>  {
     let {name} = req.query
     const product = await Product.find()
     if(name) {
-      let nombre = name.toString()
-      let products = product.filter(e => e.name.toLowerCase().includes(nombre?.toLowerCase()))
+      let stringName = name.toString()
+      let products = product.filter(e => e.name.toLowerCase().includes(stringName?.toLowerCase()))
         if(!products.length) {
           return res.send(product)
         } else {
