@@ -8,7 +8,8 @@ const categories : object[] = [
     {"name": 'Hamburguesas'}, 
     {"name": 'Ensaladas'}, 
     {"name": 'Bebidas sin Alcohol'},
-    {"name": 'Cervezas'}
+    {"name": 'Cervezas'},
+    {"name": "Papas"}
 ]
 
 export default categories;

@@ -4,8 +4,21 @@ import Category from '../models/Category'
 
 export const getCategory: RequestHandler = async (req,res)  =>  {
   try {
-    const category = await Category.find()
-    res.status(200).json(category)
+    // const category = await Category.find()
+    // res.status(200).json(category)
+    const resultado = await Category.aggregate([
+      {
+        $lookup:
+          {
+            from: "products",
+            localField: "name",
+            foreignField: "category",
+            as: "categoryProducts"
+          }
+        
+      }
+    ])
+   res.status(200).json(resultado)
   } catch (error) {
     console.log('Error in get Category',error)
   }
@@ -33,3 +46,4 @@ export const postCategory: RequestHandler = async (req,res) =>  {
     console.log('Error in post Category',error)
   }
 }
+

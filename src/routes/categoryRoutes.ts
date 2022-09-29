@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { getCategory, postCategory } from '../controllers/categoryHandler';
+import { getCategory, postCategory } from '../controllers/categoryController';
 
 const categoryRouter = Router()
 categoryRouter.get('/category',getCategory)

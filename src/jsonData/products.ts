@@ -6,9 +6,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466426/E-Commerce%20Food/2018151-1618507927746_mrzdkk.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Papas"
     },
     {
         "name": "Papas fritas",
@@ -17,9 +15,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 4,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466465/E-Commerce%20Food/2018149-1619199424915_y6p9vs.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Papas"
     },
     {
         "name": "Papas Cerveceras",
@@ -28,9 +24,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466493/E-Commerce%20Food/2018148-1618508286190_dnebup.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Papas"
     },
     {
         "name": "Pepsi Regular 354 ml",
@@ -39,9 +33,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 3,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466519/E-Commerce%20Food/9698b85c-3e59-4524-a40a-ddd03d3c1e64-1628272541947_o1toei.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Bebidas sin Alcohol"
     },
     {
         "name": "7Up Lima Limón 354 ml",
@@ -50,9 +42,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 4,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466579/E-Commerce%20Food/e39991c4-3185-4d2b-a2ab-e1ec3661bbb5-1628272573706_onsu3m.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Bebidas sin Alcohol"
     },
     {
         "name": "Pepsi Black 354 ml",
@@ -61,9 +51,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466595/E-Commerce%20Food/b67b4f63-412c-4866-92a1-2fe4366764f3-1628272584783_mgqvbp.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Bebidas sin Alcohol"
     },
     {
         "name": "Villavicencio 500 ml",
@@ -72,9 +60,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 3,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466618/E-Commerce%20Food/D_NQ_NP_777853-MLA44632277984_012021-O_fafvvu.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Bebidas sin Alcohol"
     },
     {
         "name": "Cerveza Heineken lata",
@@ -83,9 +69,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466637/E-Commerce%20Food/D_NQ_NP_637542-MLA49976820839_052022-O_iqhkiu.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Cervezas"
     },
     {
         "name": "Schneider Lager 473 ml",
@@ -94,9 +78,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 4,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466656/E-Commerce%20Food/1139196-1588023044528_szjlrb.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Cervezas"
     },
     {
         "name": "Stella Artois 473 ml",
@@ -105,9 +87,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466672/E-Commerce%20Food/D_NQ_NP_759447-MLA43740133080_102020-O_i7c5kt.jpg",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Cervezas"
     },
     {
         "name": "Andes Roja 473 ml",
@@ -116,9 +96,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466692/E-Commerce%20Food/D_NQ_NP_736046-MLA48522001422_122021-O_kid9tu.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Cervezas"
     },
     {
         "name": "Imperial Ipa 43 ml",
@@ -127,9 +105,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 4,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466713/E-Commerce%20Food/D_NQ_NP_855362-MLA46569073008_062021-O_ztz23q.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Cervezas"
     },
     {
         "name": "Ensalada Cesar",
@@ -138,9 +114,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466735/E-Commerce%20Food/2018269-1619199424925_pk4vwd.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Ensaladas"
     },
     {
         "name": "Ensalada Serrana",
@@ -149,9 +123,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 3,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466768/E-Commerce%20Food/2018268-1619199424922_metdbr.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Ensaladas"
     },
     {
         "name": "Ensalada Completa",
@@ -160,9 +132,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466786/E-Commerce%20Food/2018270-1619199424926_bom87k.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Ensaladas"
     },
     {
         "name": "Cheese & Bacon",
@@ -171,9 +141,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 4,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466800/E-Commerce%20Food/1647603815618_fxodta.jpg",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Hamburguesas"
     },
     {
         "name": "Cheese Burger",
@@ -182,9 +150,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466819/E-Commerce%20Food/1647603829943_hmuuh7.jpg",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Hamburguesas"
     },
     {
         "name": "Nairobi",
@@ -193,9 +159,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 3,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466837/E-Commerce%20Food/1647603620254_awjfar.jpg",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Hamburguesas"
     },
     {
         "name": "Berlin",
@@ -204,9 +168,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466861/E-Commerce%20Food/1647603857338_uao7be.jpg",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Hamburguesas"
     },
     {
         "name": "Oslo",
@@ -215,9 +177,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466928/E-Commerce%20Food/1647603870000_gixptf.jpg",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Hamburguesas"
     },
     {
         "name": "Tokio",
@@ -226,9 +186,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466941/E-Commerce%20Food/1647603870000_xjnlqc.jpg",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Hamburguesas"
     },
     {
         "name": "Churrinche",
@@ -237,9 +195,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466800/E-Commerce%20Food/1647603815618_fxodta.jpg",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Hamburguesas"
     },
     {
         "name": "Veggie Burger",
@@ -248,9 +204,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466837/E-Commerce%20Food/1647603620254_awjfar.jpg",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Hamburguesas"
     },
     {
         "name": "Mila Napolitana",
@@ -259,9 +213,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467022/E-Commerce%20Food/1579602-1619199408414_uvc5st.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Milanesas"
     },
     {
         "name": "Mila Completa",
@@ -270,9 +222,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467038/E-Commerce%20Food/1464154-1597089380193_jns9w5.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Milanesas"
     },
     {
         "name": "Mila BBQ",
@@ -281,9 +231,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467056/E-Commerce%20Food/1464164-1597089419402_niwv8w.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Milanesas"
     },
     {
         "name": "Mila Guacamole",
@@ -292,9 +240,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467072/E-Commerce%20Food/2029677-1619199424928_ocnfeb.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Milanesas"
     },
     {
         "name": "Sorrentinos de Jamón & Queso",
@@ -303,9 +249,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467090/E-Commerce%20Food/1464118-1597089007997_c3cgro.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Pastas"
     },
     {
         "name": "Ravioles de Pollo & Verdura",
@@ -314,9 +258,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467106/E-Commerce%20Food/1464099-1597088997641_ddmbjk.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Pastas"
     },
     {
         "name": "Tagliatelle Al Huevo",
@@ -325,9 +267,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467122/E-Commerce%20Food/1464097-1597088965309_wl4nlw.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Pastas"
     },
     {
         "name": "Ñoquis",
@@ -336,9 +276,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467138/E-Commerce%20Food/2286703-1622486406840_cpxzxe.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Pastas"
     },
     {
         "name": "Pizza Muzzarella",
@@ -347,9 +285,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467178/E-Commerce%20Food/1464083-1597088848483_bv9hlq.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Pizzas"
     },
     {
         "name": "Pizza Napolitana",
@@ -358,9 +294,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467337/E-Commerce%20Food/3d251d1dd1f9ddd2ac3b7d53b65c1b05_pizza_salami_website_1200_600_hnh7tk.jpg",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Pizzas"
     },
     {
         "name": "Pizza de Verdura",
@@ -369,9 +303,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467385/E-Commerce%20Food/pizza-de-brocoli-by-josquin2000_riiqm7.jpg",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Pizzas"
     },
     {
         "name": "Pizza Fugazza",
@@ -380,9 +312,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467415/E-Commerce%20Food/fugaz_9AZICtTMHNiBKq3vVgj6Qz4hD1F0c2_vsvosj.jpg",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Pizzas"
     },
     {
         "name": "Pizza de Jamón",
@@ -391,9 +321,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467447/E-Commerce%20Food/pizza-jamo_CC_81n-y-queso-Newlux_sxojor.jpg",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Pizzas"
     },
     {
         "name": "Pizza Jamón & Morrones",
@@ -402,9 +330,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467483/E-Commerce%20Food/cbae6c5d135e92cd19e8b496afe91118997b9ba887e8d141e42ea37af8ed94b783288_rxg7is.jpg",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Pizzas"
     },
     {
         "name": "Pizza de Palmitos",
@@ -413,9 +339,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467514/E-Commerce%20Food/oadh4wne8ofcylhnooea.jpg",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Pizzas"
     },
     {
         "name": "Pizza Calabresa",
@@ -424,9 +348,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467543/E-Commerce%20Food/43-image_web_rqmahb.jpg",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Pizzas"
     },
     {
         "name": "Torta Oreo",
@@ -435,9 +357,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467567/E-Commerce%20Food/1494032-1597442233044_xtzmua.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Postres"
     },
     {
         "name": "Chocotorta",
@@ -446,9 +366,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467584/E-Commerce%20Food/1494031-1597442216533_vrrtit.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Postres"
     },
     {
         "name": "Mousse de Chocolate",
@@ -457,9 +375,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467602/E-Commerce%20Food/3195e228-08bf-4557-9d02-ab54634cafc2-1635380880184_x00jrn.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Postres"
     },
     {
         "name": "Cheesecake",
@@ -468,9 +384,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467617/E-Commerce%20Food/8f7a357b-3bbf-42e8-8a26-927cabd53b41-1635380924274_jyv7vm.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Postres"
     },
     {
         "name": "Sándwich Mila Full Full",
@@ -479,9 +393,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467632/E-Commerce%20Food/1464147-1597089135792_qerab6.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Sandwiches"
     },
     {
         "name": "Sándwich Mila Cheddar",
@@ -490,9 +402,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467646/E-Commerce%20Food/1976670-1619199408429_ehla3e.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Sandwiches"
     },
     {
         "name": "Sándwich Mila BBQ",
@@ -501,9 +411,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467660/E-Commerce%20Food/1976669-1618507651643_jbymlg.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Sandwiches"
     },
     {
         "name": "Sándwich Lomito Full Ful",
@@ -512,9 +420,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467674/E-Commerce%20Food/1464149-1597089358916_kmlgul.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Sandwiches"
     },
     {
         "name": "Sandwich Lomito Clásico",
@@ -523,9 +429,7 @@ const products : object[]= [
         "stock": 100,
         "rating": 5,
         "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467688/E-Commerce%20Food/1976666-1619199408419_kp4kjb.webp",
-        "category": {
-            "_id": 'a completar'
-        }
+        "category": "Sandwiches"
     }
 ]
 

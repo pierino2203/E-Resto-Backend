@@ -1,5 +1,6 @@
 import { Schema,model } from 'mongoose'
 
+
 interface Product {
     name: string,
     description: string,
@@ -7,9 +8,9 @@ interface Product {
     stock:number,
     rating:number,
     off:boolean,
-    img:string,
-    createdAt: Date,
-    updatedAt: Date
+    category:string,
+    // diet:Array,
+    img:string
 }
 
 const ProductSchema = new Schema<Product>({
@@ -28,31 +29,30 @@ const ProductSchema = new Schema<Product>({
     },
     stock:{
         type:Number,
-        required:true
+        require:true
     },
     rating:{
         type: Number
     },
     off:{
         type:Boolean,
-        required:true,
-        default: false
+        required:false
     },
     img:{
         type:String,
-        required:true,
-        default: 'https://res.cloudinary.com/luubermudezz/image/upload/v1664466217/E-Commerce%20Food/avatar_pdkofa.jpg'
+        required:true
     },
-    createdAt: {
-        type: Date,
-        required: true,
-        default: Date.now
+    category:{
+        type: String
     },
-    updatedAt: {
-        type: Date,
-        required: true,
-        default: Date.now
-    }
+    // diet:{
+    //     type: Array,
+    //     default: []
+    // }   
+    
+},{
+    timestamps: true,
+    versionKey:false
 })
 
 export default model('products',ProductSchema)
