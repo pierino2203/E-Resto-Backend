@@ -15,11 +15,19 @@ void (async () => {
     //   useUnifiedTopology: true
     })
     console.log('DB is connect to: ', db.connection.name)
-    Category.insertMany(categories)
-    // Products.insertMany(productos)
-     .then(val => {console.log('products in DB')})
-     .catch(err => {console.log(err)})
+    const find = await Products.find();
+    if(find.length !== 0) {
+      console.log('products already in DB')
+    } else {
+      Products.insertMany(productos)
+      Category.insertMany(categories)
+      .then(val => {console.log('products in DB')})
+      .catch(err => {console.log(err)})
+    }
+
+
   } catch (error) {
     console.log('Error in connect DB', error)
   }
 })()
+
