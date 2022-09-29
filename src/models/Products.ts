@@ -1,9 +1,20 @@
 import { Schema,model } from 'mongoose'
 
-const ProductSchema = new Schema({
+interface Product {
+    name: string,
+    description: string,
+    price:number,
+    stock:number,
+    rating:number,
+    off:boolean,
+    img:string,
+    createdAt: Date
+}
+
+const ProductSchema = new Schema<Product>({
     name:{
         type:String,
-        require: true
+        required: true
     },
     description:{
         type:String,
@@ -15,22 +26,25 @@ const ProductSchema = new Schema({
     },
     stock:{
         type:Number,
-        require:true
+        required:true
     },
     rating:{
         type: Number
     },
     off:{
         type:Boolean,
-        required:false
-    },
-    combo:{
-        type:Boolean,
-        required:false
+        required:true,
+        default: false
     },
     img:{
         type:String,
-        required:true
+        required:true,
+        default: 'https://static2.elnortedecastilla.es/www/pre2017/multimedia/noticias/201501/12/media/cortadas/facebook-profile-picture-no-pic-avatar--575x323.jpg'
+    },
+    createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now
     }
 })
 
