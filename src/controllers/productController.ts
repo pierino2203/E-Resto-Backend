@@ -1,13 +1,21 @@
-import { RequestHandler } from 'express'
+import { RequestHandler, Request } from 'express'
 import mongoose, { isValidObjectId } from 'mongoose'
 import Category from '../models/Category'
 import Diet from '../models/Diet'
 import Product from '../models/Products'
+import { product } from './Interfaces/Interfaces'
 const ObjectId = mongoose.Types.ObjectId
-export const getProduct: RequestHandler = async (req,res) =>  {
+
+type ReqDictionary = {}
+type ReqBody = { foo1 ?: string }
+type ResBody = { foo3 ?: string }
+type ReqQuery = { name ?: string }
+type SomeHandlerRequest = Request<ReqDictionary, ResBody, ReqBody, ReqQuery>
+
+export const getProduct: RequestHandler = async (req:SomeHandlerRequest,res) =>  {
   try {
     const {name} = req.query;
-      const resultado= await Product.aggregate([
+      const resultado:Array<product> = await Product.aggregate([
         {
           $lookup:
             {
@@ -38,10 +46,11 @@ export const getProduct: RequestHandler = async (req,res) =>  {
         //   }
         // }   
       ])
+     
       if(!name){
         res.status(200).json(resultado)
       }else{
-        const find = resultado.filter((e) => e.name.toLowercase().includes(name) )
+        const find = resultado.filter((e) => e.name.toLowerCase().includes(name.toLowerCase()) )
         console.log(find)
         if(find.length>0){
           res.json(find)
