@@ -15,7 +15,8 @@ interface Product {
 const ProductSchema = new Schema<Product>({
     name:{
         type:String,
-        required: true
+        required: true,
+        unique:true
     },
     description:{
         type:String,

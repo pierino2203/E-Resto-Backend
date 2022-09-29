@@ -14,10 +14,16 @@ void (async () => {
     //   useUnifiedTopology: true
     })
     console.log('DB is connect to: ', db.connection.name)
-    Products.insertMany(productos)
-     .then(val => {console.log('products in DB')})
-     .catch(err => {console.log(err)})
+      Products.insertMany(productos)
+      .then(val => {console.log('products in DB')})
+      .catch(err => {console.log('products already in DB')})
   } catch (error) {
     console.log('Error in connect DB', error)
   }
 })()
+
+
+/*
+
+
+*/
