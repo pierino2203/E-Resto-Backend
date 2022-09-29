@@ -6,8 +6,7 @@ import Product from '../models/Products'
 const ObjectId = mongoose.Types.ObjectId
 export const getProduct: RequestHandler = async (req,res) =>  {
   try {
-    const {name} = req.query;
-      const resultado= await Product.aggregate([
+        const resultado= await Product.aggregate([
         {
           $lookup:
             {
@@ -38,10 +37,11 @@ export const getProduct: RequestHandler = async (req,res) =>  {
         //   }
         // }   
       ])
-      if(!name){
+      if(!req.query.name){
         res.status(200).json(resultado)
       }else{
-        const find = resultado.filter((e) => e.name.toLowercase().includes(name) )
+        const name = req.query.name.toString()
+        const find = resultado.filter((e) => e.name.toLowercase().includes(name.toLowercase()) )
         console.log(find)
         if(find.length>0){
           res.json(find)
