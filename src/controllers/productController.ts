@@ -19,53 +19,53 @@ export const getProduct: RequestHandler = async (req,res) =>  {
   // } catch (error) {
   //   console.log('Error in get Products',error)
   // }
-  const {name} = req.query;
-  if(name){
-    const findName= await Product.aggregate([
-      {
-        $lookup:
-          {
-            from: "categories",
-            localField: "category",
-            foreignField: "_id",
-            as: "categoryProducts"
-          }
+  // const {name} = req.query;
+  // if(name){
+  //   const findName= await Product.aggregate([
+  //     {
+  //       $lookup:
+  //         {
+  //           from: "categories",
+  //           localField: "category",
+  //           foreignField: "_id",
+  //           as: "categoryProducts"
+  //         }
         
-      },{ $unwind: "$categoryProducts"},
-      {
-        $lookup:
-        {
-          from: "diets",
-          let:  {
-            aliasNameDiet: "$diet"
-          },
-          pipeline: [
-            {
-              $match: {
-                $expr:  {
-                  $in: ["$name", "$$aliasNameDiet"]
-                }
-              }
-            }
-          ],
-          as: "ListDiets"
-        }
-      }    
-    ])
-    if(findName){
-      res.status(200).json(findName)
-    }else{
-      res.send(`Product ${name} not found`)
-    }
+  //     },{ $unwind: "$categoryProducts"},
+  //     {
+  //       $lookup:
+  //       {
+  //         from: "diets",
+  //         let:  {
+  //           aliasNameDiet: "$diet"
+  //         },
+  //         pipeline: [
+  //           {
+  //             $match: {
+  //               $expr:  {
+  //                 $in: ["$name", "$$aliasNameDiet"]
+  //               }
+  //             }
+  //           }
+  //         ],
+  //         as: "ListDiets"
+  //       }
+  //     }    
+  //   ])
+  //   if(findName){
+  //     res.status(200).json(findName)
+  //   }else{
+  //     res.send(`Product ${name} not found`)
+  //   }
     
-  }
+  // }
   const resultado= await Product.aggregate([
     {
       $lookup:
         {
           from: "categories",
           localField: "category",
-          foreignField: "_id",
+          foreignField: "name",
           as: "categoryProducts"
         }
       
@@ -88,7 +88,7 @@ export const getProduct: RequestHandler = async (req,res) =>  {
         ],
         as: "ListDiets"
       }
-    },{$match: {name: name}}    
+    }   
   ])
   res.status(200).json(resultado)
 }
@@ -103,7 +103,7 @@ export const getProductById: RequestHandler = async (req,res) =>  {
             {
               from: "categories",
               localField: "category",
-              foreignField: "_id",
+              foreignField: "name",
               as: "categoryProducts"
             }
           
@@ -126,7 +126,7 @@ export const getProductById: RequestHandler = async (req,res) =>  {
             ],
             as: "ListDiets"
           }
-        },{$match: {_id: new ObjectId(id)}}    
+        },{$match: {_id: new ObjectId(id)}}   
       ])
       if(resultado){
         res.status(200).json(resultado)
@@ -145,7 +145,7 @@ export const getProductById: RequestHandler = async (req,res) =>  {
 export const postProduct: RequestHandler = async (req,res)  =>{
   try {
     const {name,description,price,stock,rating,off,combo,img,category,diet} = req.body
-    const cat = await Category.findById(category)
+    // const cat = await Category.findById(category)
     // const die = await Diet.findById(diet)
     const product = new Product({
       name: name,
@@ -156,7 +156,7 @@ export const postProduct: RequestHandler = async (req,res)  =>{
       off: off,
       combo: combo,
       img: img,
-      category: cat?._id,
+      category: category,
       diet: diet
     })
     const saveProduct = await product.save();
