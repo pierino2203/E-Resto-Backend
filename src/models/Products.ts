@@ -31,7 +31,19 @@ const ProductSchema = new Schema({
     img:{
         type:String,
         required:true
-    }
+    },
+    category:{
+        type: Schema.Types.ObjectId,
+        ref: 'category'
+    },
+    diet:{
+        type: Array,
+        default: []
+    }   
+    
+},{
+    timestamps: true,
+    versionKey:false
 })
 
 export default model('products',ProductSchema)
