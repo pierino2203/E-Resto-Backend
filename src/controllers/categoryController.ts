@@ -1,33 +1,49 @@
 import {RequestHandler} from 'express'
-import Diet from '../models/Diet'
+import { isValidObjectId } from 'mongoose'
+import Category from '../models/Category'
 
-export const getDiets: RequestHandler = async (req,res) =>  {
+export const getCategory: RequestHandler = async (req,res)  =>  {
   try {
-    const diets = await Diet.find();
-    res.status(200).json(diets)
+    // const category = await Category.find()
+    // res.status(200).json(category)
+    const resultado = await Category.aggregate([
+      {
+        $lookup:
+          {
+            from: "products",
+            localField: "name",
+            foreignField: "category",
+            as: "categoryProducts"
+          }
+        
+      }
+    ])
+   res.status(200).json(resultado)
   } catch (error) {
-    console.log('Error in get Diet',error)
+    console.log('Error in get Category',error)
   }
 }
-export const postDiets: RequestHandler = async (req,res) =>  {
+
+export const postCategory: RequestHandler = async (req,res) =>  {
   try {
     const{name} =req.body
-    const find = await Diet.findOne({name: name})
+    const find = await Category.findOne({name: name})
     if(find === null){
       if(!name){
         res.send('Please insert data required')
       }
       else{
-        const diet = new Diet({
+        const category = new Category({
           name: name
         })
-        const saveDiet = await diet.save();
-        res.status(200).json(saveDiet)
+        const saveCategory = await category.save();
+        res.status(200).json(saveCategory)
       }
     }else{
-      res.send('Diet already exist')
+      res.send('Category already exist')
     }
   } catch (error) {
-    console.log('Error in post Diet',error)
+    console.log('Error in post Category',error)
   }
-}  
+}
+
