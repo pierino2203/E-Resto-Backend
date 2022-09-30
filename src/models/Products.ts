@@ -1,9 +1,23 @@
 import { Schema,model } from 'mongoose'
 
-const ProductSchema = new Schema({
+
+interface Product {
+    name: string,
+    description: string,
+    price:number,
+    stock:number,
+    rating:number,
+    off:boolean,
+    category:string,
+    // diet:Array,
+    img:string
+}
+
+const ProductSchema = new Schema<Product>({
     name:{
         type:String,
-        require: true
+        required: true,
+        unique:true
     },
     description:{
         type:String,
@@ -24,14 +38,21 @@ const ProductSchema = new Schema({
         type:Boolean,
         required:false
     },
-    combo:{
-        type:Boolean,
-        required:false
-    },
     img:{
         type:String,
         required:true
-    }
+    },
+    category:{
+        type: String
+    },
+    // diet:{
+    //     type: Array,
+    //     default: []
+    // }   
+    
+},{
+    timestamps: true,
+    versionKey:false
 })
 
 export default model('products',ProductSchema)
