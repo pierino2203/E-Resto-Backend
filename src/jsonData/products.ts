@@ -185,7 +185,7 @@ const products : object[]= [
         "price": 1150,
         "stock": 100,
         "rating": 5,
-        "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466941/E-Commerce%20Food/1647603870000_xjnlqc.jpg",
+        "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664466800/E-Commerce%20Food/1647603815618_fxodta.jpg",
         "category": "Hamburguesas"
     },
     {
@@ -284,7 +284,7 @@ const products : object[]= [
         "price": 950,
         "stock": 100,
         "rating": 5,
-        "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467178/E-Commerce%20Food/1464083-1597088848483_bv9hlq.webp",
+        "img": "https://res.cloudinary.com/luubermudezz/image/upload/v1664467153/E-Commerce%20Food/1464083-1597088848483_wxeuw1.webp",
         "category": "Pizzas"
     },
     {
