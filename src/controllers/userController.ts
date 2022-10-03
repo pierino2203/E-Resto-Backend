@@ -15,7 +15,7 @@ export const getUser: RequestHandler = async (req,res) => {
 }
 export const postUser: RequestHandler = async (req,res) =>  {
   try {
-    const {name,lastName,userName,mail,admin,img} = req.body
+    const {name,lastName,userName,adress,password,mail,admin,img} = req.body
     // if( !name || !lastName || !userName || !mail) {res.send('Missing data required')}
     const userFind = await User.findOne({mail: mail})
     if(userFind === null){
