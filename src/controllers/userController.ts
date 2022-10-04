@@ -119,3 +119,20 @@ export const noBanUser : RequestHandler = async (req, res) => {
   }
   else {console.log(`didn't get id correctly`)}
 }
+
+export const setUserAsAdmin : RequestHandler = async (req, res) => {
+  let {id} = req.params
+  const update = {admin: true}
+  if(isValidObjectId(id)) {
+    try{
+      const user = await User.findByIdAndUpdate(id, update, {
+        new: true
+      })
+      res.send(user)
+    } catch(err) {
+      res.send(err)
+    }
+  } else {
+    console.log(`didn't get id correctly`)
+  }
+}
