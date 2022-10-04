@@ -1,4 +1,18 @@
 import { Schema,model } from 'mongoose'
+const bcrypt= require('bcryptjs')
+
+export interface User {
+  name: string,
+  lastName: string,
+  userName: string,
+  mail: string,
+  password: string,
+  adress: string,
+  admin: boolean,
+  baneado: boolean,
+  token: string,
+  
+}
 
 const UserSchema = new Schema({
   name:{
@@ -39,12 +53,23 @@ const UserSchema = new Schema({
   img:{
     type: String
   },
-  orders:[{
-    type: Schema.Types.ObjectId,
-    ref: 'order'
-  }]
+  token:{
+    type:String
+  },
+  // orders:[{
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'order'
+  // }]
 },{
   timestamps: true,
   versionKey:false
 })
- export default model('user',UserSchema)
+
+UserSchema.methods.encryptPassword= async (password: String)  =>  {
+  const salt =await bcrypt.genSalt(10)
+  return bcrypt.hash(password, salt)
+}
+UserSchema.methods.validatePassword = function (password: String) {
+  return bcrypt.compare(password, this.password)
+}
+export default model('user',UserSchema)
