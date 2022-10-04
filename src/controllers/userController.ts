@@ -6,6 +6,7 @@ import { user } from './Interfaces/Interfaces'
 const bcrypt=require('bcryptjs')
 const jwt = require('jsonwebtoken');
 dotenv.config()
+
 export const getUser: RequestHandler = async (req,res) => {
   try {
     // const users= await User.find().populate('orders',{
@@ -108,7 +109,7 @@ export const userRegister: RequestHandler = async (req,res) =>  {
     }
     const user: any = new User(req.body)
     user.password = await user.encryptPassword(user.password)
-    console.log(user)
+    // console.log(user)
     await user.save()
     const token = await jwt.sign({id: user._id}, process.env.SECRET_KEY,{
       expiresIn: process.env.JWT_EXPIRE,
@@ -128,6 +129,7 @@ export const userLogin: RequestHandler = async (req,res) => {
       res.send('Enter all data required')
     }
     const find: any  = await User.find({mail: mail})
+    console.log(find)
     if(!find){
       res.send("Email not found")
     }
@@ -137,7 +139,7 @@ export const userLogin: RequestHandler = async (req,res) => {
     if(!comparePassword){
       return res.json({message:'Wrong credentials pass'});
     }
-    const token = await jwt.sign({id: find._id}, process.env.SECRET_KEY,{
+    const token = await jwt.sign({id: find[0]._id}, process.env.SECRET_KEY,{
       expiresIn: process.env.JWT_EXPIRE,
     })
     res.status(200).json({auth: true,token})
@@ -157,3 +159,52 @@ export const userToken: RequestHandler= async(req: any,res)=>  {
     console.log('Error in Token ',error)
   }
 }
+export const banUser : RequestHandler = async (req, res) => {
+  let {id} = req.params
+  const update = {baneado: true}
+  if(isValidObjectId(id)) {
+    try {
+      const user = await User.findByIdAndUpdate(id, update, {
+        new: true
+      })
+      res.send(user)
+    } catch(err) {
+      res.send(err)
+    }
+  }
+  else {console.log(`didn't get id correctly`)}
+}
+
+export const noBanUser : RequestHandler = async (req, res) => {
+  let {id} = req.params
+  const update = {baneado: false}
+  if(isValidObjectId(id)) {
+    try {
+      const user = await User.findByIdAndUpdate(id, update, {
+        new: true
+      })
+      res.send(user)
+    } catch(err) {
+      res.send(err)
+    }
+  }
+  else {console.log(`didn't get id correctly`)}
+}
+
+export const setUserAsAdmin : RequestHandler = async (req, res) => {
+  let {id} = req.params
+  const update = {admin: true}
+  if(isValidObjectId(id)) {
+    try{
+      const user = await User.findByIdAndUpdate(id, update, {
+        new: true
+      })
+      res.send(user)
+    } catch(err) {
+      res.send(err)
+    }
+  } else {
+    console.log(`didn't get id correctly`)
+  }
+}
+
