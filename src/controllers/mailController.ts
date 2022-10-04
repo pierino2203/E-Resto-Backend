@@ -10,9 +10,9 @@ export const sendWelcomeEmail : RequestHandler  = async (req, res) => {
          try {
         const transporter = createTransporter()
         const info = await transporter.sendMail({
-            from:'henrysfood@mail',
+            from:'"Bienvenid@" <henrysfood@gmail.com>',
             to: `${user.mail}`,
-            subject: `Hello ${user.name}`,
+            subject: `Bienvenid@ ${user.name}!`,
             html: welcomeTemplate
         })
         console.log('mail sent')
@@ -32,9 +32,9 @@ export const sendSubscribeEmail : RequestHandler = async (req, res) => {
         try {
             const transporter = createTransporter()
             const info = await transporter.sendMail({
-                from:'"Subscribe" <bermudez.luciana9@gmail.com>',
+                from:'"Suscripción" <henrysfood@gmail.com>',
                 to: `${mail}`,
-                subject: `Hello new subscriber!`,
+                subject: `¡Gracias por suscribirte!`,
                 html: welcomeTemplate
             })
             console.log('mail sent')
@@ -54,9 +54,9 @@ export const sendUserBannedEmail : RequestHandler =async (req, res) => {
          try {
         const transporter = createTransporter()
         const info = await transporter.sendMail({
-            from:'henrysfood@mail',
+            from:'"Usuario Baneado" <henrysfood@gmail.com>',
             to: `${user.mail}`,
-            subject: `Hello ${user.name}`,
+            subject: `Hola ${user.name}`,
             html: bannedUserTemplate
         })
         console.log('mail sent')
