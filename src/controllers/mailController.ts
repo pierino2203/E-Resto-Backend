@@ -1,6 +1,7 @@
 import {RequestHandler} from 'express'
 import { createTransporter } from '../emailer'
 import { bannedUserTemplate, welcomeTemplate } from '../htmlTemplates/templates'
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 
 //  Para mail de registro:
 export const sendWelcomeEmail : RequestHandler  = async (req, res) => {
@@ -31,7 +32,7 @@ export const sendSubscribeEmail : RequestHandler = async (req, res) => {
         try {
             const transporter = createTransporter()
             const info = await transporter.sendMail({
-                from:'henrysfood@mail',
+                from:'"Subscribe" <bermudez.luciana9@gmail.com>',
                 to: `${mail}`,
                 subject: `Hello new subscriber!`,
                 html: welcomeTemplate
