@@ -7,7 +7,7 @@ interface Product {
     price:number,
     stock:number,
     rating:number,
-    off:boolean,
+    off:number,
     category:string,
     // diet:Array,
     img:string
@@ -35,8 +35,8 @@ const ProductSchema = new Schema<Product>({
         type: Number
     },
     off:{
-        type:Boolean,
-        required:false
+        type: Number,
+        default: 0
     },
     img:{
         type:String,
