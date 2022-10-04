@@ -24,6 +24,7 @@ export const sendWelcomeEmail : RequestHandler  = async (req, res) => {
    
 }
 
+// Para input de suscripción
 export const sendSubscribeEmail : RequestHandler =async (req, res) => {
     let mail = req.body
     if(mail) {
@@ -45,6 +46,7 @@ export const sendSubscribeEmail : RequestHandler =async (req, res) => {
     
 }
 
+//para banear usuario
 export const sendUserBannedEmail : RequestHandler =async (req, res) => {
     let user = req.body
     if(user) {
