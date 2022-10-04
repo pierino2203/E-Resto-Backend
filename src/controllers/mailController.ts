@@ -25,8 +25,8 @@ export const sendWelcomeEmail : RequestHandler  = async (req, res) => {
 }
 
 // Para input de suscripción
-export const sendSubscribeEmail : RequestHandler =async (req, res) => {
-    let mail = req.body
+export const sendSubscribeEmail : RequestHandler = async (req, res) => {
+    let {mail} = req.params
     if(mail) {
         try {
             const transporter = createTransporter()
