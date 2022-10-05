@@ -5,14 +5,14 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 
 //  Para mail de registro:
 export const sendWelcomeEmail : RequestHandler  = async (req, res) => {
-    let user = req.body
-    if(user) {
+    let {mail} = req.params
+    if(mail) {
          try {
         const transporter = createTransporter()
         const info = await transporter.sendMail({
             from:'"Bienvenid@" <henrysfood@gmail.com>',
-            to: `${user.mail}`,
-            subject: `Bienvenid@ ${user.name}!`,
+            to: `${mail}`,
+            subject: `Bienvenid@!`,
             html: welcomeTemplate
         })
         console.log('mail sent')
