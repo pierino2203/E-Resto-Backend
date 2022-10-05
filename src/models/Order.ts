@@ -7,22 +7,26 @@ user_id:{
 },
 date:{
   type: Date,
+  default: Date.now
 },
 payment:{
   type: String,
-  require: true
+  // require: true
 },
 subtotal:{
   type: String,
-  require: true
+  // require: true
 },
 paid:{
   type: Boolean,
-  require: true
+  // require: true
 },
 description:{
   type: String
-}
+},
+products:{
+  type: Array,
+},
 },{
     timestamps: true,
     versionKey: false

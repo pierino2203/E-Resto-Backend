@@ -56,10 +56,10 @@ const UserSchema = new Schema({
   token:{
     type:String
   },
-  // orders:[{
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'order'
-  // }]
+  orders:[{
+    type: Schema.Types.ObjectId,
+    ref: 'order'
+  }]
 },{
   timestamps: true,
   versionKey:false

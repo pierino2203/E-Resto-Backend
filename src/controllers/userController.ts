@@ -10,12 +10,12 @@ dotenv.config()
 
 export const getUser: RequestHandler = async (req,res) => {
   try {
-    // const users= await User.find().populate('orders',{
-    //   user_id: 0,
-    //   createdAt: 0,
-    //   updatedAt: 0
-    // })
-    const users= await User.find()
+    const users= await User.find().populate('orders',{
+      user_id: 0,
+      createdAt: 0,
+      updatedAt: 0
+    })
+    // const users= await User.find()
     res.status(200).json(users)
   } catch (error) {
     console.log('Error in getUser',error)
@@ -33,7 +33,7 @@ export const postUser: RequestHandler = async (req,res) =>  {
       
     } else{
       // const order = await Order.findById(order_id);
-      res.send('User already exist')
+      res.status(404).send('User already exist')
     }  
   }
    catch (error) {
@@ -51,10 +51,10 @@ export const findUserById: RequestHandler = async (req,res) => {
         updatedAt: 0
       })
       user
-      ? res.send(user)
-      : res.send('User not found')
+      ? res.status(200).send(user)
+      : res.status(404).send('User not found')
     }else{
-      res.send('User not found')
+      res.status(404).send('User not found')
     }
   } catch (error) {
     console.log('Error in find User By Id',error)
@@ -68,9 +68,9 @@ export const deleteUser: RequestHandler = async (req,res) =>  {
       const user = await User.findByIdAndDelete(id)
       user
       ? res.status(200).json({ msg: `Deleted User ${id}`})
-      : res.send('User not found')
+      : res.status(404).send('User not found')
     }else{
-      res.send('User not found')
+      res.status(404).send('User not found')
     }
   }
   catch(error){
@@ -85,7 +85,7 @@ export const editUser: RequestHandler = async (req,res) =>  {
       const user = await User.findByIdAndUpdate(id,req.body)
       user
       ? res.status(200).json(user)
-      : res.send('User not found')
+      : res.status(404).send('User not found')
     }else{
       res.send('User not found')
     }
@@ -103,10 +103,10 @@ export const userRegister: RequestHandler = async (req,res) =>  {
     const findEmail = await User.find({ mail: mail})
     const findUserName = await User.find({userName: userName})
     if(findEmail.length>0){
-      return res.json({msg: "User already exist with the given email"})
+      return res.status(404).send("User already exist with the given email")
     }
     if(findUserName.length>0){
-      return res.json({msg: "User already exist with the given userName"})
+      return res.status(404).send("User already exist with the given userName")
     }
     const user: any = new User(req.body)
     user.password = await user.encryptPassword(user.password)
@@ -131,15 +131,14 @@ export const userLogin: RequestHandler = async (req,res) => {
       res.send('Enter all data required')
     }
     const find: any  = await User.find({mail: mail})
-    console.log(find)
-    if(!find){
-      res.send("Email not found")
+    if(find.length===0){
+      return res.status(404).send("Email not found")
     }
     // console.log(find[0].password)
     // const comparePassword =await bcrypt.compare(password,find[0].password)
     const comparePassword =await find[0].validatePassword(password)
     if(!comparePassword){
-      return res.json({message:'Wrong credentials pass'});
+      return res.status(404).send('Wrong credentials pass');
     }
     const token = await jwt.sign({id: find[0]._id}, process.env.SECRET_KEY,{
       expiresIn: process.env.JWT_EXPIRE,

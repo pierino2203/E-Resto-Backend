@@ -30,7 +30,7 @@ export const postCategory: RequestHandler = async (req,res) =>  {
     const find = await Category.findOne({name: name})
     if(find === null){
       if(!name){
-        res.send('Please insert data required')
+        return res.status(404).send('Please insert data required')
       }
       else{
         const category = new Category({
@@ -40,7 +40,7 @@ export const postCategory: RequestHandler = async (req,res) =>  {
         res.status(200).json(saveCategory)
       }
     }else{
-      res.send('Category already exist')
+      res.status(404).send('Category already exist')
     }
   } catch (error) {
     console.log('Error in post Category',error)
