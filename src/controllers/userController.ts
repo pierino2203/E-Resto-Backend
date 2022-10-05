@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express'
 import { isValidObjectId } from 'mongoose'
 import User from '../models/User'
+
 export const getUser: RequestHandler = async (req,res) => {
   try {
     const users= await User.find().populate('orders',{
