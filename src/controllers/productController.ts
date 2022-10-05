@@ -55,7 +55,7 @@ export const getProduct: RequestHandler = async (req:SomeHandlerRequest,res) => 
           res.json(find)
         }
         else{
-          res.send('not found')
+          res.status(404).send('not found')
         }
       }
   } catch (error) {
@@ -103,10 +103,10 @@ export const getProductById: RequestHandler = async (req,res) =>  {
       if(resultado.length>0){
         res.status(200).json(resultado)
       }else{
-        res.send(`Product ${id} not found`)
+        res.status(404).send(`Product ${id} not found`)
       }
     }else{
-      res.send(`Product ${req.params.id} not found`)
+      res.status(404).send(`Product ${req.params.id} not found`)
     }
   } catch (error) {
     console.log('Error in Find Product By id',error)
@@ -145,9 +145,9 @@ export const editProduct: RequestHandler  =async(req,res) =>{
       const edit = await Product.findByIdAndUpdate(req.params.id,req.body)
       edit
       ? res.json(edit)
-      : res.send(`Product id:${req.params.id} not found`)
+      : res.status(404).send(`Product id:${req.params.id} not found`)
     }else{
-      res.send(`Product id:${req.params.id} not found`)
+      res.status(404).send(`Product id:${req.params.id} not found`)
     }
   } catch (error) {
     console.log('Error in Edit Product',error)  
@@ -160,9 +160,9 @@ export const deleteProduct: RequestHandler  =async(req,res) =>{
       const dele = await Product.findByIdAndDelete(req.params.id,req.body)
       dele
       ? res.json(dele)
-      :res.send(`Product id:${req.params.id} not found`)
+      :res.status(404).send(`Product id:${req.params.id} not found`)
     }else{
-      res.send(`Product id:${req.params.id} not found`)
+      res.status(404).send(`Product id:${req.params.id} not found`)
     }
   } catch (error) {
     console.log('Error in Delete Product',error)  

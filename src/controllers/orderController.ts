@@ -2,14 +2,47 @@ import {RequestHandler} from 'express'
 import { isValidObjectId } from 'mongoose'
 import Order from '../models/Order'
 import User from '../models/User'
+import mongoose from 'mongoose'
+const ObjectId = mongoose.Types.ObjectId
 
 export const getOrders: RequestHandler = async (req,res ) =>  {
   try {
-    const orders = await Order.find().populate('user_id',{
-      _id: 1,
-      name: 1,
-      mail: 1
-    })
+    // const orders = await Order.find().populate('user_id',{
+    //   _id: 1,
+    //   name: 1,
+    //   mail: 1
+    // })
+    const orders: any = await Order.aggregate([
+      {
+        $lookup:
+        {
+          from: "users",
+          localField:"user_id",
+          foreignField: "_id",
+          as:"User__"
+        }
+      },
+      {
+        $lookup:
+        {
+          from:"products",
+          let:{
+            aliasNameProduct: "$products",
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr:  {
+                  $in: ["$name","$$aliasNameProduct"]
+                }
+              }
+            }
+          ],
+          as: "ListProducts"
+        }
+      }
+    ])
+    
     res.status(200).json(orders)
   } catch (error) {
     console.log('Error en Get Orders')
@@ -17,7 +50,7 @@ export const getOrders: RequestHandler = async (req,res ) =>  {
 }
 export const postOrders: RequestHandler = async (req,res)  =>  {
   try {
-    const {user_id,date,payment,subtotal,paid,description} = req.body
+    const {user_id,date,payment,subtotal,paid,description,products} = req.body
     const user: any = await User.findById(user_id);
     const newOrder = new Order({
       user_id: user?._id,
@@ -25,7 +58,8 @@ export const postOrders: RequestHandler = async (req,res)  =>  {
       payment: payment,
       subtotal: subtotal,
       paid: paid,
-      description: description
+      description: description,
+      products: products
     })
     const saveOrder: any = await newOrder.save();
     const id_order = saveOrder._id
@@ -42,16 +76,41 @@ export const getOrderById: RequestHandler = async (req,res)  =>  {
   try {
     const {id} = req.params
     if(isValidObjectId(id)){
-      const order = await Order.findById(id).populate('user_id',{
-        _id: 1,
-        name: 1,
-        mail: 1
-      })
+      const order: any = await Order.aggregate([
+        {
+          $lookup:
+          {
+            from: "users",
+            localField:"user_id",
+            foreignField: "_id",
+            as:"User__"
+          }
+        },
+        {
+          $lookup:
+          {
+            from:"products",
+            let:{
+              aliasNameProduct: "$products",
+            },
+            pipeline: [
+              {
+                $match: {
+                  $expr:  {
+                    $in: ["$name","$$aliasNameProduct"]
+                  }
+                }
+              }
+            ],
+            as: "ListProducts"
+          }
+        },{$match: {_id: new ObjectId(id)}},
+      ])
       order
       ? res.send(order)
-      : res.send('Order not found')
+      : res.status(404).send('Order not found')
     }else{
-      res.send('Order not found')
+      res.status(404).send('Order not found')
     }
   } catch (error) {
     console.log('Error in find Order By Id',error)
@@ -66,9 +125,9 @@ export const deleteOrder: RequestHandler = async (req,res)  =>{
       const order = await Order.findByIdAndDelete(id)
       order
       ? res.status(200).json({ msg: `Deleted User ${id}`})
-      : res.send('Order not found')
+      : res.status(404).send('Order not found')
     }else{
-      res.send('Order not found')
+      res.status(404).send('Order not found')
     }
   }
   catch(error){
@@ -83,9 +142,9 @@ export const editOrder: RequestHandler = async (req,res)  =>  {
       const order = await Order.findByIdAndUpdate(id,req.body)
       order
       ? res.status(200).json(order)
-      : res.send('Order not found')
+      : res.status(404).send('Order not found')
     }else{
-      res.send('Order not found')
+      res.status(404).send('Order not found')
     }
   } catch (error) {
     console.log('Error in Edit Order',error)
