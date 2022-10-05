@@ -3,6 +3,7 @@ import { isValidObjectId } from 'mongoose'
 import dotenv from 'dotenv'
 import User from '../models/User'
 import { user } from './Interfaces/Interfaces'
+import { sendWelcomeEmail } from './mailController'
 const bcrypt=require('bcryptjs')
 const jwt = require('jsonwebtoken');
 dotenv.config()
@@ -111,6 +112,7 @@ export const userRegister: RequestHandler = async (req,res) =>  {
     user.password = await user.encryptPassword(user.password)
     // console.log(user)
     await user.save()
+
     const token = await jwt.sign({id: user._id}, process.env.SECRET_KEY,{
       expiresIn: process.env.JWT_EXPIRE,
     })
