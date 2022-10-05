@@ -1,6 +1,7 @@
 import {RequestHandler} from 'express'
 import { createTransporter } from '../emailer'
 import { bannedUserTemplate, welcomeTemplate } from '../htmlTemplates/templates'
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 
 //  Para mail de registro:
 export const sendWelcomeEmail : RequestHandler  = async (req, res) => {
@@ -9,9 +10,9 @@ export const sendWelcomeEmail : RequestHandler  = async (req, res) => {
          try {
         const transporter = createTransporter()
         const info = await transporter.sendMail({
-            from:'henrysfood@mail',
+            from:'"Bienvenid@" <henrysfood@gmail.com>',
             to: `${user.mail}`,
-            subject: `Hello ${user.name}`,
+            subject: `Bienvenid@ ${user.name}!`,
             html: welcomeTemplate
         })
         console.log('mail sent')
@@ -25,15 +26,15 @@ export const sendWelcomeEmail : RequestHandler  = async (req, res) => {
 }
 
 // Para input de suscripción
-export const sendSubscribeEmail : RequestHandler =async (req, res) => {
-    let mail = req.body
+export const sendSubscribeEmail : RequestHandler = async (req, res) => {
+    let {mail} = req.params
     if(mail) {
         try {
             const transporter = createTransporter()
             const info = await transporter.sendMail({
-                from:'henrysfood@mail',
+                from:'"Suscripción" <henrysfood@gmail.com>',
                 to: `${mail}`,
-                subject: `Hello new subscriber!`,
+                subject: `¡Gracias por suscribirte!`,
                 html: welcomeTemplate
             })
             console.log('mail sent')
@@ -53,9 +54,9 @@ export const sendUserBannedEmail : RequestHandler =async (req, res) => {
          try {
         const transporter = createTransporter()
         const info = await transporter.sendMail({
-            from:'henrysfood@mail',
+            from:'"Usuario Baneado" <henrysfood@gmail.com>',
             to: `${user.mail}`,
-            subject: `Hello ${user.name}`,
+            subject: `Hola ${user.name}`,
             html: bannedUserTemplate
         })
         console.log('mail sent')

@@ -1,10 +1,18 @@
 import { Router } from "express"
-import { deleteUser, editUser, findUserById, getUser, postUser } from "../controllers/userController";
+import {verifyToken} from '../controllers/utils/verify'
+import { banUser, deleteUser, editUser, findUserById, getUser, noBanUser, postUser, setUserAsAdmin, userLogin, userRegister, userToken  } from "../controllers/userController";
+
 
 const userRouter = Router()
 userRouter.get('/user',getUser)
 userRouter.post('/user',postUser)
-userRouter.get('/user/:id',findUserById)
+// userRouter.get('/user/:id',findUserById)
 userRouter.delete('/user/:id',deleteUser)
 userRouter.put('/user/:id',editUser)
+userRouter.post('/user/register',userRegister)
+userRouter.post('/user/login', userLogin)
+userRouter.get('/user/token',verifyToken,userToken)
+userRouter.put('/banUser/:id', banUser)
+userRouter.put('/noBanUser/:id', noBanUser)
+userRouter.put('/setAdmin/:id', setUserAsAdmin)
 export default userRouter;
