@@ -38,6 +38,7 @@ export const getReviewById: RequestHandler = async (req,res)  =>  {
   try {
     const {id}  = req.params
     if(isValidObjectId(id)){
+      
       const reviews = await Review.aggregate([
         {
           $lookup:
@@ -58,7 +59,7 @@ export const getReviewById: RequestHandler = async (req,res)  =>  {
           }
         },{$match: {_id: new ObjectId(id)}},
       ])
-      if(reviews){
+      if(reviews.length>0){
         return res.status(200).json(reviews)
       }else{
         res.status(404).send('Review not found')
@@ -110,9 +111,18 @@ export const deleteReview: RequestHandler = async(req,res)  =>  {
   try {
     const {id}= req.params
     if(isValidObjectId(id)){
-      const dele = await Review.findByIdAndDelete(id);
-      if(dele){
-        res.status(200).json(dele)
+      const review = await Review.findById(id)
+      if(review){
+        const id_product: any = await Products.findById(review.product_id)
+        const id_user: any = await User.findById(review.user_id)
+        id_product.review_product = id_product.review_product.filter((e: any) => e!=id )
+        id_user.reviews_user = id_user.reviews_user.filter((e:any)=> e!=id)
+        console.log(id_product.review_product)
+        console.log(id_user.reviews_user)
+        await id_product.save();
+        await id_user.save();
+        await Review.findByIdAndDelete(id);
+        res.send('Review Deleted')
       }else{
         res.status(404).send('Review not found')
       }
