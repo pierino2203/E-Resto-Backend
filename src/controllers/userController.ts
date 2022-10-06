@@ -3,7 +3,7 @@ import { isValidObjectId } from 'mongoose'
 import dotenv from 'dotenv'
 import User from '../models/User'
 import { user } from './Interfaces/Interfaces'
-import { sendWelcomeEmail } from './mailController'
+import { sendForgotPassEmail, sendWelcomeEmail } from './mailController'
 import { read } from 'fs'
 const bcrypt=require('bcryptjs')
 const jwt = require('jsonwebtoken');
@@ -225,3 +225,20 @@ export const setUserAsAdmin : RequestHandler = async (req, res) => {
   }
 }
 
+export const setNewPass : RequestHandler = async (req, res) => {
+  let {mail} = req.body
+  try {
+    const userFind = await User.findOne({mail: mail})
+    if(userFind) {
+      let text = `http://localhost:3000/recupera/${userFind._id}`
+      sendForgotPassEmail(mail, text)
+      res.send({message: 'Hemos enviado un link de recuperación a tu correo electrónico'})
+    } 
+    else{res.send('user not found')}
+    
+  } catch (error) {
+    console.log(error)
+    res.send(error)
+  }
+
+}

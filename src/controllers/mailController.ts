@@ -67,3 +67,24 @@ export const sendUserBannedEmail : RequestHandler =async (req, res) => {
     }
     } else {console.log(`didn't get user`)}
 }
+
+
+
+export const sendForgotPassEmail = async (mail : String, text: String) => {
+    
+    try {
+        const transporter = createTransporter()
+
+        await transporter.sendMail({
+            from: '"Recuperación de cuenta" <henrysfood@gmail.com>',
+            to: mail,
+            subject: 'Recuperá tu contraseña',
+            text: `Hola! Recupera tu contraseña haciendo click en el siguiente enlace ${text}`,
+        });
+
+        console.log("email sent sucessfully");
+    } catch (error) {
+        console.log(error, "email not sent");
+    }
+};
+
