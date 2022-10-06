@@ -88,12 +88,7 @@ export const editUser: RequestHandler = async (req,res) =>  {
         const passHash = await bcrypt.hash(req.body.password,salt)
         console.log(req.body.password);
         req.body.password = passHash
-        
-        const user = await User.findByIdAndUpdate(id,{password: req.body.password})
-        console.log(req.body.password);
-        return  res.json(user)
       }
-
       const user = await User.findByIdAndUpdate(id,req.body)
       user
       ? res.status(200).json(user)
