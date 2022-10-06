@@ -48,7 +48,8 @@ const ProductSchema = new Schema<Product>({
     },
     review_product:[{
         type: Schema.Types.ObjectId,
-        ref: 'reviews'
+        ref: 'reviews',
+        default: []
     }]
     // diet:{
     //     type: Array,

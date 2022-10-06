@@ -58,11 +58,13 @@ const UserSchema = new Schema({
   },
   orders:[{
     type: Schema.Types.ObjectId,
-    ref: 'order'
+    ref: 'order',
+    
   }],
   reviews_user:[{
     type: Schema.Types.ObjectId,
-    ref: 'reviews'
+    ref: 'reviews',
+    
   }]
 },{
   timestamps: true,

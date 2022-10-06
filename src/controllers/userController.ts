@@ -7,16 +7,60 @@ import { sendWelcomeEmail } from './mailController'
 import { read } from 'fs'
 const bcrypt=require('bcryptjs')
 const jwt = require('jsonwebtoken');
+import mongoose from 'mongoose'
+const ObjectId = mongoose.Types.ObjectId
 dotenv.config()
 
 export const getUser: RequestHandler = async (req,res) => {
   try {
-    const users= await User.find().populate('orders',{
-      user_id: 0,
-      createdAt: 0,
-      updatedAt: 0
-    })
+    // const users= await User.find().populate('orders',{
+    //   user_id: 0,
+    //   createdAt: 0,
+    //   updatedAt: 0
+    // })
     // const users= await User.find()
+    const users = await User.aggregate([
+      {
+        $lookup:
+        {
+          from: "orders",
+          let:
+          {
+            aliasOrder: "$orders"
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $in: ["$_id","$$aliasOrder"]
+                }
+              }
+            }
+          ],
+          as: "orderList"
+        }
+      },
+      {
+        $lookup:
+        {
+          from: "reviews",
+          let:
+          {
+            aliasReview: "$reviews_user"
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $in: ["$_id","$$aliasReview"]
+                }
+              }
+            }
+          ],
+          as: "reviewList"
+        }
+      }  
+    ])
     res.status(200).json(users)
   } catch (error) {
     console.log('Error in getUser',error)
@@ -46,11 +90,48 @@ export const findUserById: RequestHandler = async (req,res) => {
   try {
     const {id} = req.params
     if(isValidObjectId(id)){
-      const user = await User.findById(id).populate('orders',{
-        user_id: 0,
-        createdAt: 0,
-        updatedAt: 0
-      })
+      const user = await User.aggregate([
+        {
+          $lookup:
+          {
+            from: "orders",
+            let:
+            {
+              aliasOrder: "$orders"
+            },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $in: ["$_id","$$aliasOrder"]
+                  }
+                }
+              }
+            ],
+            as: "orderList"
+          }
+        },
+        {
+          $lookup:
+          {
+            from: "reviews",
+            let:
+            {
+              aliasReview: "$reviews_user"
+            },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $in: ["$_id","$$aliasReview"]
+                  }
+                }
+              }
+            ],
+            as: "reviewUserList"
+          }
+        },{$match: {_id: new ObjectId(id)}},  
+      ])
       user
       ? res.status(200).send(user)
       : res.status(404).send('User not found')
