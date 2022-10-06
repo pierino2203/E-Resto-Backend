@@ -11,6 +11,7 @@ interface Product {
     category:string,
     // diet:Array,
     img:string
+    review_product: Array<{}>
 }
 
 const ProductSchema = new Schema<Product>({
@@ -45,6 +46,10 @@ const ProductSchema = new Schema<Product>({
     category:{
         type: String
     },
+    review_product:[{
+        type: Schema.Types.ObjectId,
+        ref: 'reviews'
+    }]
     // diet:{
     //     type: Array,
     //     default: []

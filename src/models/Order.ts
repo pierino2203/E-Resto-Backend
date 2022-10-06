@@ -14,7 +14,7 @@ payment:{
   // require: true
 },
 subtotal:{
-  type: String,
+  type: Number,
   // require: true
 },
 paid:{
