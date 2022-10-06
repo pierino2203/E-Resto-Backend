@@ -1,5 +1,6 @@
 import {Router} from 'express'
 import { sendSubscribeEmail, sendUserBannedEmail, sendWelcomeEmail } from '../controllers/mailController';
+import { setNewPass } from '../controllers/userController';
 
 const mailRouter = Router();
 
@@ -8,5 +9,8 @@ const mailRouter = Router();
 mailRouter.post('/sendWelcomeMail/:mail', sendWelcomeEmail)
 mailRouter.post('/sendSubscribeMail/:mail', sendSubscribeEmail)
 mailRouter.post('/sendBanMail', sendUserBannedEmail)
+mailRouter.post('/sendRecuperaContra/:mail', setNewPass)
+
+
 
 export default mailRouter;
