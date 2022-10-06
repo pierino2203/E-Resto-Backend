@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import User from '../models/User'
 import { user } from './Interfaces/Interfaces'
 import { sendWelcomeEmail } from './mailController'
+import { read } from 'fs'
 const bcrypt=require('bcryptjs')
 const jwt = require('jsonwebtoken');
 dotenv.config()
@@ -82,6 +83,17 @@ export const editUser: RequestHandler = async (req,res) =>  {
   try {
     const {id}= req.params
     if(isValidObjectId(id)){
+      if(req.body.password){
+        const salt =await bcrypt.genSalt(10)
+        const passHash = await bcrypt.hash(req.body.password,salt)
+        console.log(req.body.password);
+        req.body.password = passHash
+        
+        const user = await User.findByIdAndUpdate(id,{password: req.body.password})
+        console.log(req.body.password);
+        return  res.json(user)
+      }
+
       const user = await User.findByIdAndUpdate(id,req.body)
       user
       ? res.status(200).json(user)
@@ -151,7 +163,11 @@ export const userLogin: RequestHandler = async (req,res) => {
 
 export const userToken: RequestHandler= async(req: any,res)=>  {
   try {
-    const user =await User.findById(req.userId, {password: 0})
+    const user =await User.findById(req.userId, {password: 0}).populate('orders',{
+      user_id: 0,
+      createdAt: 0,
+      updatedAt: 0
+    })
   if(!user){
     return res.status(404).send('User not found')
   }
