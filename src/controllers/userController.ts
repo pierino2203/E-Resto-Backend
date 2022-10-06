@@ -221,7 +221,7 @@ export const setUserAsAdmin : RequestHandler = async (req, res) => {
 }
 
 export const setNewPass : RequestHandler = async (req, res) => {
-  let {mail} = req.body
+  let {mail} = req.params
   try {
     const userFind = await User.findOne({mail: mail})
     if(userFind) {
