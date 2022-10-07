@@ -2,9 +2,7 @@ import { RequestHandler } from 'express'
 import { isValidObjectId } from 'mongoose'
 import dotenv from 'dotenv'
 import User from '../models/User'
-import { user } from './Interfaces/Interfaces'
-import { sendForgotPassEmail, sendWelcomeEmail } from './mailController'
-import { read } from 'fs'
+import { sendForgotPassEmail, sendUserBannedEmail, sendUserNoBannedEmail } from './mailController'
 const bcrypt=require('bcryptjs')
 const jwt = require('jsonwebtoken');
 dotenv.config()
@@ -179,6 +177,7 @@ export const banUser : RequestHandler = async (req, res) => {
       const user = await User.findByIdAndUpdate(id, update, {
         new: true
       })
+      sendUserBannedEmail(user)
       res.send(user)
     } catch(err) {
       res.send(err)
@@ -195,6 +194,7 @@ export const noBanUser : RequestHandler = async (req, res) => {
       const user = await User.findByIdAndUpdate(id, update, {
         new: true
       })
+      sendUserNoBannedEmail(user)
       res.send(user)
     } catch(err) {
       res.send(err)
@@ -237,3 +237,8 @@ export const setNewPass : RequestHandler = async (req, res) => {
   }
 
 }
+
+
+
+
+

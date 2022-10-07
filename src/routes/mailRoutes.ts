@@ -8,7 +8,6 @@ const mailRouter = Router();
 
 mailRouter.post('/sendWelcomeMail/:mail', sendWelcomeEmail)
 mailRouter.post('/sendSubscribeMail/:mail', sendSubscribeEmail)
-mailRouter.post('/sendBanMail', sendUserBannedEmail)
 mailRouter.post('/sendRecuperaContra/:mail', setNewPass)
 
 
