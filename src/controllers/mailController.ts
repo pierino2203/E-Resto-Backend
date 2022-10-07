@@ -1,7 +1,7 @@
 import {RequestHandler} from 'express'
 import { isValidObjectId } from 'mongoose'
 import { createTransporter } from '../emailer'
-import { bannedUserTemplate, noBannedUserTemplate, welcomeTemplate } from '../htmlTemplates/templates'
+import { adminTemplate, bannedUserTemplate, noBannedUserTemplate, welcomeTemplate } from '../htmlTemplates/templates'
 import User from '../models/User'
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 
@@ -70,7 +70,7 @@ export const sendUserBannedEmail  =async (user:any) => {
     
 }
 
-
+//avisar a usuario que no está más baneado
 export const sendUserNoBannedEmail  =async (user:any) => {
     try {
         const transporter = createTransporter()
@@ -88,7 +88,7 @@ export const sendUserNoBannedEmail  =async (user:any) => {
 }
 
 
-
+//recuperar contraseña
 export const sendForgotPassEmail = async (mail : String, text: String) => {
     
     try {
@@ -107,3 +107,20 @@ export const sendForgotPassEmail = async (mail : String, text: String) => {
     }
 };
 
+//avisar que el usuario es ahora admin
+
+export const sendAdminWelcome  =async (user:any) => {
+    try {
+        const transporter = createTransporter()
+        const info = await transporter.sendMail({
+            from:'"Felicitaciones, eres Administrador!" <henrysfood@gmail.com>',
+            to: `${user.mail}`,
+            subject: `Hola ${user.name}`,
+            html: adminTemplate
+        })
+        console.log('mail sent')
+
+        } catch(err) {
+            console.log(err)
+        }
+}
