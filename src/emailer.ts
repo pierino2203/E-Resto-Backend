@@ -6,8 +6,8 @@ export const createTransporter = () => {
         port: 465,
         secure: true,
         auth: {
-            user: "bermudez.luciana9@gmail.com",
-            pass: "wmdcjkapreejulfn"
+            user: "tastehenrysfood@gmail.com",
+            pass: "zqeipmfcshggejst"
         }
     })
     return transport
