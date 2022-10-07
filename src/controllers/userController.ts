@@ -2,7 +2,7 @@ import { RequestHandler } from 'express'
 import { isValidObjectId } from 'mongoose'
 import dotenv from 'dotenv'
 import User from '../models/User'
-import { sendForgotPassEmail, sendUserBannedEmail, sendUserNoBannedEmail } from './mailController'
+import { sendAdminWelcome, sendForgotPassEmail, sendUserBannedEmail, sendUserNoBannedEmail } from './mailController'
 const bcrypt=require('bcryptjs')
 const jwt = require('jsonwebtoken');
 dotenv.config()
@@ -211,6 +211,7 @@ export const setUserAsAdmin : RequestHandler = async (req, res) => {
       const user = await User.findByIdAndUpdate(id, update, {
         new: true
       })
+      sendAdminWelcome(user)
       res.send(user)
     } catch(err) {
       res.send(err)
