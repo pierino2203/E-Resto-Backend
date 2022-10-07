@@ -1,6 +1,8 @@
 import {RequestHandler} from 'express'
+import { isValidObjectId } from 'mongoose'
 import { createTransporter } from '../emailer'
-import { bannedUserTemplate, welcomeTemplate } from '../htmlTemplates/templates'
+import { bannedUserTemplate, noBannedUserTemplate, welcomeTemplate } from '../htmlTemplates/templates'
+import User from '../models/User'
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 
 //  Para mail de registro:
@@ -48,24 +50,41 @@ export const sendSubscribeEmail : RequestHandler = async (req, res) => {
 }
 
 //para banear usuario
-export const sendUserBannedEmail : RequestHandler =async (req, res) => {
-    let user = req.body
-    if(user) {
-         try {
+export const sendUserBannedEmail  =async (user:any) => {
+
+        try {
+            const transporter = createTransporter()
+            const info = await transporter.sendMail({
+                from:'"Usuario Baneado" <henrysfood@gmail.com>',
+                to: `${user.mail}`,
+                subject: `Hola ${user.name}`,
+                html: bannedUserTemplate
+            })
+            console.log('mail sent')
+
+            } catch(err) {
+                console.log(err)
+            }
+
+    
+    
+}
+
+
+export const sendUserNoBannedEmail  =async (user:any) => {
+    try {
         const transporter = createTransporter()
         const info = await transporter.sendMail({
-            from:'"Usuario Baneado" <henrysfood@gmail.com>',
+            from:'"Bienvenido de nuevo!" <henrysfood@gmail.com>',
             to: `${user.mail}`,
             subject: `Hola ${user.name}`,
-            html: bannedUserTemplate
+            html: noBannedUserTemplate
         })
         console.log('mail sent')
-        res.send(info)
-    } catch(err) {
-        console.log(err)
-        res.send(err)
-    }
-    } else {console.log(`didn't get user`)}
+
+        } catch(err) {
+            console.log(err)
+        }
 }
 
 
