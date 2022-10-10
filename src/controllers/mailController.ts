@@ -1,8 +1,7 @@
 import {RequestHandler} from 'express'
-import { isValidObjectId } from 'mongoose'
+
 import { createTransporter } from '../emailer'
 import { adminTemplate, bannedUserTemplate, noBannedUserTemplate, welcomeTemplate } from '../htmlTemplates/templates'
-import User from '../models/User'
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 
 //  Para mail de registro:
