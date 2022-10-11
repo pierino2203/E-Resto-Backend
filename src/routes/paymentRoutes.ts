@@ -6,7 +6,7 @@ const stripeRouter = Router();
 
 //por ahora todo por rutas, cuando tengamos las funciones de logueo y baneo de usuarios, se borran
 
-stripeRouter.post('/payment',verifyToken, paymentStripe)
+stripeRouter.post('/payment', paymentStripe)
 
 
 export default stripeRouter;
