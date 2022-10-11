@@ -1,5 +1,6 @@
 import {Router} from 'express'
 import { deleteProduct, editProduct, getProduct, getProductById, postProduct } from '../controllers/productController';
+import { verifyToken } from '../controllers/utils/verify';
 
 const productRouter = Router();
 productRouter.get('/product',getProduct)

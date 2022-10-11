@@ -27,25 +27,26 @@ export const getProduct: RequestHandler = async (req:SomeHandlerRequest,res) => 
             }
           
         },{ $unwind: "$categoryProducts"},
-        // {
-        //   $lookup:
-        //   {
-        //     from: "diets",
-        //     let:  {
-        //       aliasNameDiet: "$diet"
-        //     },
-        //     pipeline: [
-        //       {
-        //         $match: {
-        //           $expr:  {
-        //             $in: ["$name", "$$aliasNameDiet"]
-        //           }
-        //         }
-        //       }
-        //     ],
-        //     as: "ListDiets"
-        //   }
-        // }   
+        {
+          $lookup:
+          {
+            from: "reviews",
+            let:
+            {
+              aliasReviewProduct: "$review_product"
+            },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $in: ["$_id","$$aliasReviewProduct"]
+                  }
+                }
+              }
+            ],
+            as: "reviewProductList"
+          }
+        }  
       ])
       if(!name){
         res.status(200).json(resultado)
@@ -79,26 +80,26 @@ export const getProductById: RequestHandler = async (req,res) =>  {
             }
           
         },{ $unwind: "$categoryProducts"},
-        // {
-        //   $lookup:
-        //   {
-        //     from: "diets",
-        //     let:  {
-        //       aliasNameDiet: "$diet"
-        //     },
-        //     pipeline: [
-        //       {
-        //         $match: {
-        //           $expr:  {
-        //             $in: ["$name", "$$aliasNameDiet"]
-        //           }
-        //         }
-        //       }
-        //     ],
-        //     as: "ListDiets"
-        //   }
-        // }
-        {$match: {_id: new ObjectId(id)}}   
+        {
+          $lookup:
+          {
+            from: "reviews",
+            let:
+            {
+              aliasReview: "$review_product"
+            },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $in: ["$_id","$$aliasReview"]
+                  }
+                }
+              }
+            ],
+            as: "reviewList"
+          }
+        },{$match: {_id: new ObjectId(id)}}, 
       ])
       if(resultado.length>0){
         res.status(200).json(resultado)

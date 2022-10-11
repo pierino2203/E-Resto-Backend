@@ -82,6 +82,12 @@ export const postReview : RequestHandler = async (req,res)  =>  {
     const id_review = saveReview._id
     user.reviews_user = user.reviews_user.concat(id_review)
     product.review_product= product.review_product.concat(id_review)
+    if(product.review_product.length>1){
+      product.rating= product.rating*(product.review_product.length)
+      product.rating = (product.rating+rating)/(product.review_product.length+1)
+    }else{
+      product.rating = (product.rating+rating)/2;
+    }
     await user.save()
     await product.save()
     res.status(200).json(saveReview)

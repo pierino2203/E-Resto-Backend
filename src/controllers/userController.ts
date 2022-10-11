@@ -5,16 +5,60 @@ import User from '../models/User'
 import { sendAdminWelcome, sendForgotPassEmail, sendUserBannedEmail, sendUserNoBannedEmail } from './mailController'
 const bcrypt=require('bcryptjs')
 const jwt = require('jsonwebtoken');
+import mongoose from 'mongoose'
+const ObjectId = mongoose.Types.ObjectId
 dotenv.config()
 
 export const getUser: RequestHandler = async (req,res) => {
   try {
-    const users= await User.find().populate('orders',{
-      user_id: 0,
-      createdAt: 0,
-      updatedAt: 0
-    })
+    // const users= await User.find().populate('orders',{
+    //   user_id: 0,
+    //   createdAt: 0,
+    //   updatedAt: 0
+    // })
     // const users= await User.find()
+    const users = await User.aggregate([
+      {
+        $lookup:
+        {
+          from: "orders",
+          let:
+          {
+            aliasOrder: "$orders"
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $in: ["$_id","$$aliasOrder"]
+                }
+              }
+            }
+          ],
+          as: "orderList"
+        }
+      },
+      {
+        $lookup:
+        {
+          from: "reviews",
+          let:
+          {
+            aliasReview: "$reviews_user"
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $in: ["$_id","$$aliasReview"]
+                }
+              }
+            }
+          ],
+          as: "reviewList"
+        }
+      }  
+    ])
     res.status(200).json(users)
   } catch (error) {
     console.log('Error in getUser',error)
@@ -44,11 +88,48 @@ export const findUserById: RequestHandler = async (req,res) => {
   try {
     const {id} = req.params
     if(isValidObjectId(id)){
-      const user = await User.findById(id).populate('orders',{
-        user_id: 0,
-        createdAt: 0,
-        updatedAt: 0
-      })
+      const user = await User.aggregate([
+        {
+          $lookup:
+          {
+            from: "orders",
+            let:
+            {
+              aliasOrder: "$orders"
+            },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $in: ["$_id","$$aliasOrder"]
+                  }
+                }
+              }
+            ],
+            as: "orderList"
+          }
+        },
+        {
+          $lookup:
+          {
+            from: "reviews",
+            let:
+            {
+              aliasReview: "$reviews_user"
+            },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $in: ["$_id","$$aliasReview"]
+                  }
+                }
+              }
+            ],
+            as: "reviewUserList"
+          }
+        },{$match: {_id: new ObjectId(id)}},  
+      ])
       user
       ? res.status(200).send(user)
       : res.status(404).send('User not found')
@@ -130,9 +211,30 @@ export const userRegister: RequestHandler = async (req,res) =>  {
 
 export const userLogin: RequestHandler = async (req,res) => {
   try {
-    const {mail,password} = req.body
+    const {mail,password,lastName,userName,name,google} = req.body
     // console.log(req.body.password)
-    if(!mail || !password){
+
+    if(google){
+      const findEmail = await User.find({ mail: mail})
+      const findUserName = await User.find({userName: userName})
+      if(findEmail.length>0){
+        console.log('regidtrado')
+        const token = await jwt.sign({id: findEmail[0]._id}, process.env.SECRET_KEY,{
+          expiresIn: process.env.JWT_EXPIRE,
+        })
+        res.status(200).json({auth: true,token})
+      }else{
+        console.log("no registrado")
+        const user = new  User(req.body)
+        await user.save()
+        const token = await jwt.sign({id: user._id}, process.env.SECRET_KEY,{
+          expiresIn: process.env.JWT_EXPIRE,
+        })
+        
+        res.status(200).json({auth: true,token})
+      }
+     }else{
+      if(!mail || !password){
       res.send('Enter all data required')
     }
     const find: any  = await User.find({mail: mail})
@@ -149,6 +251,8 @@ export const userLogin: RequestHandler = async (req,res) => {
       expiresIn: process.env.JWT_EXPIRE,
     })
     res.status(200).json({auth: true,token})
+     }
+    
   } catch (error) {
     console.log('Error in Login',error)
   }
@@ -238,6 +342,7 @@ export const setNewPass : RequestHandler = async (req, res) => {
   }
 
 }
+
 
 
 

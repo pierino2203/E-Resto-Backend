@@ -6,7 +6,7 @@ import { banUser, deleteUser, editUser, findUserById, getUser, noBanUser, postUs
 const userRouter = Router()
 userRouter.get('/user',getUser)
 userRouter.post('/user',postUser)
-userRouter.get('/user/:id',findUserById)
+userRouter.get('/user/:id',verifyToken,findUserById)
 userRouter.delete('/user/:id',deleteUser)
 userRouter.put('/user/:id',editUser)
 userRouter.post('/user/register',userRegister)
