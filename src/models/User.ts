@@ -56,6 +56,10 @@ const UserSchema = new Schema({
   token:{
     type:String
   },
+  google:{
+    type: Boolean,
+    default: false
+  },
   orders:[{
     type: Schema.Types.ObjectId,
     ref: 'order',

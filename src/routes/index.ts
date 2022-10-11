@@ -9,6 +9,7 @@ import stripeRouter from './paymentRoutes';
 import reviewRouter from './reviewsRouter'
 import newsLetterRouter from './newsLetterRoutes'
 
+
 const router = Router()
 router.use('/',usersRouter)
 router.use('/',ordersRouter)
@@ -19,6 +20,7 @@ router.use('/', mailRouter)
 router.use('/', stripeRouter)
 router.use('/',reviewRouter)
 router.use('/',newsLetterRouter)
+
 export default router;
 
 

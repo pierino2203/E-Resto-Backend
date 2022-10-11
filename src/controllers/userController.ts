@@ -211,9 +211,30 @@ export const userRegister: RequestHandler = async (req,res) =>  {
 
 export const userLogin: RequestHandler = async (req,res) => {
   try {
-    const {mail,password} = req.body
+    const {mail,password,lastName,userName,name,google} = req.body
     // console.log(req.body.password)
-    if(!mail || !password){
+
+    if(google){
+      const findEmail = await User.find({ mail: mail})
+      const findUserName = await User.find({userName: userName})
+      if(findEmail.length>0){
+        console.log('regidtrado')
+        const token = await jwt.sign({id: findEmail[0]._id}, process.env.SECRET_KEY,{
+          expiresIn: process.env.JWT_EXPIRE,
+        })
+        res.status(200).json({auth: true,token})
+      }else{
+        console.log("no registrado")
+        const user = new  User(req.body)
+        await user.save()
+        const token = await jwt.sign({id: user._id}, process.env.SECRET_KEY,{
+          expiresIn: process.env.JWT_EXPIRE,
+        })
+        
+        res.status(200).json({auth: true,token})
+      }
+     }else{
+      if(!mail || !password){
       res.send('Enter all data required')
     }
     const find: any  = await User.find({mail: mail})
@@ -230,6 +251,8 @@ export const userLogin: RequestHandler = async (req,res) => {
       expiresIn: process.env.JWT_EXPIRE,
     })
     res.status(200).json({auth: true,token})
+     }
+    
   } catch (error) {
     console.log('Error in Login',error)
   }
@@ -319,6 +342,7 @@ export const setNewPass : RequestHandler = async (req, res) => {
   }
 
 }
+
 
 
 

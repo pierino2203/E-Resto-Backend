@@ -3,6 +3,7 @@ import { isValidObjectId } from 'mongoose'
 import Order from '../models/Order'
 import User from '../models/User'
 import mongoose from 'mongoose'
+import Products from '../models/Products'
 const ObjectId = mongoose.Types.ObjectId
 
 export const getOrders: RequestHandler = async (req,res ) =>  {
@@ -50,7 +51,7 @@ export const getOrders: RequestHandler = async (req,res ) =>  {
 }
 export const postOrders: RequestHandler = async (req,res)  =>  {
   try {
-    const {user_id,date,payment,subtotal,paid,description,products} = req.body
+    const {user_id,date,payment,subtotal,paid,description,products,cantidad} = req.body
     const user: any = await User.findById(user_id);
     const newOrder = new Order({
       user_id: user?._id,
@@ -64,6 +65,13 @@ export const postOrders: RequestHandler = async (req,res)  =>  {
     const saveOrder: any = await newOrder.save();
     const id_order = saveOrder._id
     // console.log(saveOrder.id);
+    cantidad.map(async (e:any)=> {
+      // console.log(e)
+      const pro: any = await Products.find({name: e.name})
+      // console.log(pro)
+      pro[0].stock= pro[0].stock - e.cant
+      await pro[0].save();
+    })
     user.orders= user.orders.concat(id_order);
     await user.save()
     res.status(200).json(saveOrder)
