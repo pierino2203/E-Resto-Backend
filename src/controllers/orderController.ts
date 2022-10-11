@@ -60,7 +60,6 @@ export const postOrders: RequestHandler = async (req,res)  =>  {
       payment: payment,
       subtotal: subtotal,
       paid: paid,
-      products: products,
       total: total,
       propina: propina,
       products: products,

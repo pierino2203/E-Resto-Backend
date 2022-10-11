@@ -32,6 +32,7 @@ propina:  {
 },
 items:{
   type: Array
+}
 },{
     timestamps: true,
     versionKey: false
