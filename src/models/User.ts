@@ -11,7 +11,6 @@ export interface User {
   admin: boolean,
   baneado: boolean,
   token: string,
-  
 }
 
 const UserSchema = new Schema({

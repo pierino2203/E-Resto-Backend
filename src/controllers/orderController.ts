@@ -4,6 +4,7 @@ import Order from '../models/Order'
 import User from '../models/User'
 import mongoose from 'mongoose'
 import Products from '../models/Products'
+import { sendBuyEmail } from './mailController'
 const ObjectId = mongoose.Types.ObjectId
 
 export const getOrders: RequestHandler = async (req,res ) =>  {
@@ -51,7 +52,7 @@ export const getOrders: RequestHandler = async (req,res ) =>  {
 }
 export const postOrders: RequestHandler = async (req,res)  =>  {
   try {
-    const {user_id,date,payment,subtotal,paid,products,cantidad,total,propina} = req.body
+    const {user_id,date,payment,subtotal,paid,products,cantidad,total,propina,items} = req.body
     const user: any = await User.findById(user_id);
     const newOrder = new Order({
       user_id: user?._id,
@@ -61,7 +62,9 @@ export const postOrders: RequestHandler = async (req,res)  =>  {
       paid: paid,
       products: products,
       total: total,
-      propina: propina
+      propina: propina,
+      products: products,
+      items: items
     })
     const saveOrder: any = await newOrder.save();
     const id_order = saveOrder._id
@@ -75,6 +78,7 @@ export const postOrders: RequestHandler = async (req,res)  =>  {
     })
     user.orders= user.orders.concat(id_order);
     await user.save()
+    sendBuyEmail(user.mail, saveOrder)
     res.status(200).json(saveOrder)
   } catch (error) {
     console.log('Error in post Order',error)

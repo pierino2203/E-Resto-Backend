@@ -20,7 +20,7 @@ export const addMailNewsLetter: RequestHandler = async(req,res) =>  {
     if(mail){
       const find = await Newsletter.find({mail: mail})
     if(find.length>0){
-      res.status(404).send("Mail already exist in NewsLetter")
+      res.status(404).send("El mail ingresado ya esta suscripto")
     }else{
       const newMail = new Newsletter(req.body)
       const mailSave = await newMail.save()

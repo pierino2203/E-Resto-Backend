@@ -184,7 +184,7 @@ export const userRegister: RequestHandler = async (req,res) =>  {
   try {
     const { name, lastName, userName, mail ,password,adress,admin,baneado,img } = req.body
     if( !name || !lastName || !userName || !mail || !password || !adress){
-      return res.json({msg: 'Please enter all data require'})
+      return res.status(404).send('Please enter all data require')
     }
     const findEmail = await User.find({ mail: mail})
     const findUserName = await User.find({userName: userName})
@@ -192,7 +192,7 @@ export const userRegister: RequestHandler = async (req,res) =>  {
       return res.status(404).send("User already exist with the given email")
     }
     if(findUserName.length>0){
-      return res.status(404).send("User already exist with the given userName")
+      return res.status(404).send("User already exist with the given username")
     }
     const user: any = new User(req.body)
     user.password = await user.encryptPassword(user.password)
@@ -211,14 +211,14 @@ export const userRegister: RequestHandler = async (req,res) =>  {
 
 export const userLogin: RequestHandler = async (req,res) => {
   try {
-    const {mail,password,lastName,userName,name,google} = req.body
+    const {mail,password,lastName,userName,name,google, img, adress} = req.body
     // console.log(req.body.password)
 
     if(google){
       const findEmail = await User.find({ mail: mail})
       const findUserName = await User.find({userName: userName})
       if(findEmail.length>0){
-        console.log('regidtrado')
+        console.log('registrado')
         const token = await jwt.sign({id: findEmail[0]._id}, process.env.SECRET_KEY,{
           expiresIn: process.env.JWT_EXPIRE,
         })

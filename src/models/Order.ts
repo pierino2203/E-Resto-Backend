@@ -29,7 +29,9 @@ total:  {
 },
 propina:  {
   type: Number
-}
+},
+items:{
+  type: Array
 },{
     timestamps: true,
     versionKey: false
