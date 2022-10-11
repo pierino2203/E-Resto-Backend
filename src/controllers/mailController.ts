@@ -123,3 +123,29 @@ export const sendAdminWelcome  =async (user:any) => {
             console.log(err)
         }
 }
+
+//para enviar compra
+
+export const sendBuyEmail = async (mail: any, order:any) => {
+    if(mail) {
+         try {
+        const transporter = createTransporter()
+        const info = await transporter.sendMail({
+            from:'"Gracias por tu compra!" <henrysfood@gmail.com>',
+            to: `${mail}`,
+            subject: `Gracias por comprar en Henry's Food! `,
+            html: `<div>Te enviamos los detalles de tu compra: 
+                        <h2>Subtotal: ${order.subtotal}</h2>
+                        <p>Productos: ${order.products.map((e:any) => e)}</p>
+                    
+                    </div>`
+        })
+        console.log('mail sent')
+        return info
+    } catch(err) {
+        console.log(err)
+        return(err)
+    }
+    } else {return console.log(`didn't get user`)}
+   
+}

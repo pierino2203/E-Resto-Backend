@@ -1,5 +1,6 @@
 import {Router} from 'express'
 import { paymentStripe } from '../controllers/paymentController';
+import { verifyToken } from '../controllers/utils/verify';
 
 const stripeRouter = Router();
 

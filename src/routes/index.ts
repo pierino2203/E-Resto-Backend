@@ -7,6 +7,8 @@ import dietRouter from './dietRouter'
 import mailRouter from './mailRoutes';
 import stripeRouter from './paymentRoutes';
 import reviewRouter from './reviewsRouter'
+import newsLetterRouter from './newsLetterRoutes'
+
 
 const router = Router()
 router.use('/',usersRouter)
@@ -17,6 +19,8 @@ router.use('/',dietRouter)
 router.use('/', mailRouter)
 router.use('/', stripeRouter)
 router.use('/',reviewRouter)
+router.use('/',newsLetterRouter)
+
 export default router;
 
 

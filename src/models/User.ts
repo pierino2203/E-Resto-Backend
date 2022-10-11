@@ -11,7 +11,6 @@ export interface User {
   admin: boolean,
   baneado: boolean,
   token: string,
-  
 }
 
 const UserSchema = new Schema({
@@ -56,13 +55,19 @@ const UserSchema = new Schema({
   token:{
     type:String
   },
+  google:{
+    type: Boolean,
+    default: false
+  },
   orders:[{
     type: Schema.Types.ObjectId,
-    ref: 'order'
+    ref: 'order',
+    
   }],
   reviews_user:[{
     type: Schema.Types.ObjectId,
-    ref: 'reviews'
+    ref: 'reviews',
+    
   }]
 },{
   timestamps: true,
