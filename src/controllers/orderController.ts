@@ -52,7 +52,7 @@ export const getOrders: RequestHandler = async (req,res ) =>  {
 }
 export const postOrders: RequestHandler = async (req,res)  =>  {
   try {
-    const {user_id,date,payment,subtotal,paid,description,products,cantidad, items} = req.body
+    const {user_id,date,payment,subtotal,paid,products,cantidad,total,propina,items} = req.body
     const user: any = await User.findById(user_id);
     const newOrder = new Order({
       user_id: user?._id,
@@ -60,7 +60,9 @@ export const postOrders: RequestHandler = async (req,res)  =>  {
       payment: payment,
       subtotal: subtotal,
       paid: paid,
-      description: description,
+      products: products,
+      total: total,
+      propina: propina,
       products: products,
       items: items
     })

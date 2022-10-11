@@ -21,15 +21,17 @@ paid:{
   type: Boolean,
   // require: true
 },
-description:{
-  type: String
-},
 products:{
   type: Array,
 },
+total:  {
+  type: Number
+},
+propina:  {
+  type: Number
+},
 items:{
   type: Array
-}
 },{
     timestamps: true,
     versionKey: false
