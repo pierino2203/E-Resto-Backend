@@ -27,6 +27,9 @@ description:{
 products:{
   type: Array,
 },
+items:{
+  type: Array
+}
 },{
     timestamps: true,
     versionKey: false
