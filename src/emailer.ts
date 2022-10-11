@@ -1,4 +1,8 @@
 const nodemailer = require('nodemailer')
+import dotenv from 'dotenv'
+
+dotenv.config()
+const pass= process.env.EMAILER_PASS 
 
 export const createTransporter = () => {
     const transport = nodemailer.createTransport({
@@ -7,7 +11,7 @@ export const createTransporter = () => {
         secure: true,
         auth: {
             user: "tastehenrysfood@gmail.com",
-            pass: "zqeipmfcshggejst"
+            pass: pass
         }
     })
     return transport

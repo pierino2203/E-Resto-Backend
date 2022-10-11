@@ -1,8 +1,7 @@
 import {RequestHandler} from 'express'
-import { isValidObjectId } from 'mongoose'
+
 import { createTransporter } from '../emailer'
 import { adminTemplate, bannedUserTemplate, noBannedUserTemplate, welcomeTemplate } from '../htmlTemplates/templates'
-import User from '../models/User'
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 
 //  Para mail de registro:
@@ -123,4 +122,30 @@ export const sendAdminWelcome  =async (user:any) => {
         } catch(err) {
             console.log(err)
         }
+}
+
+//para enviar compra
+
+export const sendBuyEmail = async (mail: any, order:any) => {
+    if(mail) {
+         try {
+        const transporter = createTransporter()
+        const info = await transporter.sendMail({
+            from:'"Gracias por tu compra!" <henrysfood@gmail.com>',
+            to: `${mail}`,
+            subject: `Gracias por comprar en Henry's Food! `,
+            html: `<div>Te enviamos los detalles de tu compra: 
+                        <h2>Subtotal: ${order.subtotal}</h2>
+                        <p>Productos: ${order.products.map((e:any) => e)}</p>
+                    
+                    </div>`
+        })
+        console.log('mail sent')
+        return info
+    } catch(err) {
+        console.log(err)
+        return(err)
+    }
+    } else {return console.log(`didn't get user`)}
+   
 }
