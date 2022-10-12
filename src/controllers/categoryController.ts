@@ -20,7 +20,7 @@ export const getCategory: RequestHandler = async (req,res)  =>  {
     ])
    res.status(200).json(resultado)
   } catch (error) {
-    console.log('Error in get Category',error)
+    console.log('Error in get Category',error);
   }
 }
 
