@@ -5,6 +5,10 @@ user_id:{
   type: Schema.Types.ObjectId,
   ref: 'user'
 },
+delivery_id:{
+  type: Schema.Types.ObjectId,
+  ref: 'delivery'
+},
 date:{
   type: Date,
   default: Date.now
@@ -29,6 +33,10 @@ total:  {
 },
 propina:  {
   type: Number
+},
+delivered:{
+  type: Boolean,
+  default: false
 },
 items:{
   type: Array
