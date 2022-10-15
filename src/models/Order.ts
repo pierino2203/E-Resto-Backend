@@ -38,6 +38,10 @@ delivered:{
   type: Boolean,
   default: false
 },
+prepared:{
+  type:Boolean,
+  default:false
+},
 items:{
   type: Array
 }
