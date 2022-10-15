@@ -30,6 +30,17 @@ total:  {
 propina:  {
   type: Number
 },
+<<<<<<< Updated upstream
+=======
+delivered:{
+  type: Boolean,
+  default: false
+},
+prepared:{
+  type:Boolean,
+  default:false
+},
+>>>>>>> Stashed changes
 items:{
   type: Array
 }
