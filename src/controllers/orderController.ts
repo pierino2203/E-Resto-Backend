@@ -5,6 +5,7 @@ import User from '../models/User'
 import mongoose from 'mongoose'
 import Products from '../models/Products'
 import { sendBuyEmail } from './mailController'
+import Delivery from '../models/Delivery'
 const ObjectId = mongoose.Types.ObjectId
 
 export const getOrders: RequestHandler = async (req,res ) =>  {
@@ -42,7 +43,16 @@ export const getOrders: RequestHandler = async (req,res ) =>  {
           ],
           as: "ListProducts"
         }
-      }
+      },
+      {
+        $lookup:
+        {
+          from: "deliveries",
+          localField:"delivery_id",
+          foreignField: "_id",
+          as:"Delivery__"
+        }
+      },
     ])
     
     res.status(200).json(orders)
@@ -116,6 +126,15 @@ export const getOrderById: RequestHandler = async (req,res)  =>  {
             ],
             as: "ListProducts"
           }
+        },
+        {
+          $lookup:
+          {
+            from: "deliveries",
+            localField:"delivery_id",
+            foreignField: "_id",
+            as:"Delivery__"
+          }
         },{$match: {_id: new ObjectId(id)}},
       ])
       order
@@ -160,5 +179,55 @@ export const editOrder: RequestHandler = async (req,res)  =>  {
     }
   } catch (error) {
     console.log('Error in Edit Order',error)
+  }
+}
+export const addDelivery: RequestHandler =async (req,res) =>  {
+  try {
+    const {id} = req.params
+    const {deli_id} = req.body
+    if(isValidObjectId(id)){
+      const order:any = await Order.findById(id)
+      const deli :any = await Delivery.findById(deli_id)
+      if(order){
+        order.delivery_id= deli_id
+        deli.orders= deli.orders.concat(id)
+        deli.ocupado = true
+        await deli.save()
+        await order.save()
+        res.status(200).json(order)
+      }
+      else{
+        res.status(404).send("Order not found")
+      }
+    }else{
+      res.status(404).send("Order not found")
+    }
+  } catch (error) {
+    console.log("error in addDelivery",error)
+  }
+}
+
+export const deliveredOrder: RequestHandler =async (req,res)  =>  {
+  try {
+    const {id} = req.params
+    const {deli_id}=req.body
+    if(isValidObjectId(id) || isValidObjectId(deli_id)){
+      const order:any = await Order.findById(id)
+      const deli :any = await Delivery.findById(deli_id)
+      if(order || deli){
+        order.delivered = true
+        deli.ocupado =false
+        await deli.save()
+        await order.save()
+        res.status(200).send("Orden entrega correctamente")
+      }
+      else{
+        res.status(404).send("error in data")
+      }
+    }else{
+      res.status(404).send("error in data")
+    }
+  } catch (error) {
+    console.log('Error en Delivered Order',error)
   }
 }
