@@ -135,4 +135,20 @@ export const deleteDelivery: RequestHandler = async (req,res) =>  {
     console.log('Error in delete delivery',error)
   }
 }
+export const deliveryToken: RequestHandler= async(req: any,res)=>  {
+  try {
+    const delivery =await Delivery.findById(req.deliveryId, {password: 0}).populate('orders',{
+      delivery_id: 0,
+      createdAt: 0,
+      updatedAt: 0
+    })
+    console.log(delivery)
+  if(!delivery){
+    return res.status(404).send('Delivery not founds')
+  }
+  res.json(delivery)
+  } catch (error) {
+    console.log('Error in Token ',error)
+  }
+}
 
