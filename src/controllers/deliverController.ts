@@ -42,7 +42,7 @@ export const registerDelivery: RequestHandler = async (req,res) =>  {
     }
     const find = await Delivery.find({mail: mail})
     if(find.length>0){
-      return res.status(404).send("Email already exist")
+      return res.status(400).send("Email already exist")
     }
     const delivery: any = new Delivery(req.body);
     delivery.password = await delivery.encryptPassword(delivery.password)
@@ -52,7 +52,7 @@ export const registerDelivery: RequestHandler = async (req,res) =>  {
     })
     res.status(200).json({auth: true,token})
   } catch (error) {
-    console.log('Error in Registe Delivery',error)
+    console.log('Error in Register Delivery',error)
   }
 }
 

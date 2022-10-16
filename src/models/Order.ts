@@ -44,6 +44,9 @@ prepared:{
 },
 items:{
   type: Array
+},
+user:{
+  type: Array
 }
 },{
     timestamps: true,
