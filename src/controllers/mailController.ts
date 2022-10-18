@@ -169,3 +169,20 @@ export const setContact: RequestHandler = async (req, res) => {
         }
     }
 
+export const sendWelcomeRepartidor = async (mail: String, password: String) => {
+
+        try {
+            const transporter = createTransporter()
+    
+            await transporter.sendMail({
+                from: '"¡Eres ahora repartidor!" <henrysfood@gmail.com>',
+                to: mail,
+                subject: 'Bienvenid@',
+                html: `<div> Hola! Te damos la bienvenida como repartidor! Gracias por ser parte de esta comunidad, para ingresar a nuestro sitio deberás ingresar la siguiente contraseña: <strong> ${password} </strong> </div>`,
+            });
+    
+            console.log("email sent sucessfully");
+        } catch (error) {
+            console.log(error, "email not sent");
+        }
+    };
