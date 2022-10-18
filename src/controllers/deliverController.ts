@@ -1,6 +1,7 @@
 import {RequestHandler} from 'express'
 import { isValidObjectId } from 'mongoose';
 import Delivery from '../models/Delivery'
+import { sendWelcomeRepartidor } from './mailController';
 const bcrypt=require('bcryptjs')
 const jwt = require('jsonwebtoken');
 
@@ -50,6 +51,7 @@ export const registerDelivery: RequestHandler = async (req,res) =>  {
     const token = await jwt.sign({id: delivery._id}, process.env.SECRET_KEY,{
       expiresIn: process.env.JWT_EXPIRE,
     })
+    sendWelcomeRepartidor(mail, password)
     res.status(200).json({auth: true,token})
   } catch (error) {
     console.log('Error in Register Delivery',error)
@@ -133,6 +135,22 @@ export const deleteDelivery: RequestHandler = async (req,res) =>  {
   }
   catch(error){
     console.log('Error in delete delivery',error)
+  }
+}
+export const deliveryToken: RequestHandler= async(req: any,res)=>  {
+  try {
+    const delivery =await Delivery.findById(req.deliveryId, {password: 0}).populate('orders',{
+      delivery_id: 0,
+      createdAt: 0,
+      updatedAt: 0
+    })
+    console.log(delivery)
+  if(!delivery){
+    return res.status(404).send('Delivery not founds')
+  }
+  res.json(delivery)
+  } catch (error) {
+    console.log('Error in Token ',error)
   }
 }
 

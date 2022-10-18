@@ -22,6 +22,9 @@ const deliverySchema = new Schema({
     type: Boolean,
     default: false
   },
+  img:{
+    type: String,
+  },
   orders:[{
     type: Schema.Types.ObjectId,
     ref: 'order'
