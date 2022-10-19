@@ -67,7 +67,6 @@ const UserSchema = new Schema({
   reviews_user:[{
     type: Schema.Types.ObjectId,
     ref: 'reviews',
-    
   }]
 },{
   timestamps: true,

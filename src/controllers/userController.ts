@@ -330,7 +330,7 @@ export const setNewPass : RequestHandler = async (req, res) => {
   try {
     const userFind = await User.findOne({mail: mail})
     if(userFind) {
-      let text = `http://localhost:3000/recupera/${userFind._id}`
+      let text = `https://restohenry.vercel.app//recupera/${userFind._id}`
       sendForgotPassEmail(mail, text)
       res.send({message: 'Hemos enviado un link de recuperación a tu correo electrónico'})
     } 
