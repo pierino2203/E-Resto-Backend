@@ -18,5 +18,5 @@ export const paymentStripe : RequestHandler = async (req, res) => {
         status = 'failure'
     }
     res.json({error, status})
-    console.log(token)
+    // console.log(token)
 }
