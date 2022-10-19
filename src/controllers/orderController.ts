@@ -74,7 +74,8 @@ export const postOrders: RequestHandler = async (req,res)  =>  {
       total: total,
       propina: propina,
       products: products,
-      items: items    })
+      items: items,
+      user: user    })
 
     const saveOrder: any = await newOrder.save();
     const id_order = saveOrder._id
