@@ -235,17 +235,20 @@ export const userLogin: RequestHandler = async (req,res) => {
       }
      }else{
       if(!mail || !password){
-      res.send('Enter all data required')
+      res.send('Ingrese todos los datos requeridos')
     }
     const find: any  = await User.find({mail: mail})
     if(find.length===0){
-      return res.status(404).send("Email not found")
+      return res.status(404).send("El mail ingresado no pertenece a un usuario")
+    }
+    if(find.baneado) {
+      return res.status(404).send('El usuario se encuentra baneado, contactese con soporte')
     }
     // console.log(find[0].password)
     // const comparePassword =await bcrypt.compare(password,find[0].password)
     const comparePassword =await find[0].validatePassword(password)
     if(!comparePassword){
-      return res.status(404).send('Wrong credentials pass');
+      return res.status(404).send('Contraseña incorrecta');
     }
     const token = await jwt.sign({id: find[0]._id}, process.env.SECRET_KEY,{
       expiresIn: process.env.JWT_EXPIRE,
