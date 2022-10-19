@@ -241,7 +241,7 @@ export const userLogin: RequestHandler = async (req,res) => {
     if(find.length===0){
       return res.status(404).send("El mail ingresado no pertenece a un usuario")
     }
-    if(find.baneado) {
+    if(find[0].baneado) {
       return res.status(404).send('El usuario se encuentra baneado, contactese con soporte')
     }
     // console.log(find[0].password)
